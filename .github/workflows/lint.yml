@@ -35,13 +35,12 @@ jobs:
       - name: Run ESLint
         run: pnpm run lint -- --max-warnings=0
 
-      - name: Run Prettier and Eslint check
+      - name: Run Prettier and ESLint check
         run: pnpm run format:check
 
       - name: Upload ESLint report (optional)
         if: failure()
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: eslint-report
           path: ./eslint-report.json
-
