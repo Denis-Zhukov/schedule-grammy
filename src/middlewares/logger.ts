@@ -48,7 +48,7 @@ const loggerMiddleware: MiddlewareFn = async (ctx, next) => {
     });
     await ctx.copyMessage(config.ADMIN_ID);
 
-    logger.info(`User ${userIdentifier} sent message: [${uniqueId}]`);
+    logger.info(`User ${userIdentifier} sent non-message: [${uniqueId}]`);
   }
   await next();
 };
