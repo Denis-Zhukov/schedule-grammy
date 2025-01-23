@@ -1,37 +1,10 @@
-import { format, toZonedTime } from 'date-fns-tz';
 import { MiddlewareFn } from 'grammy';
 import { v4 } from 'uuid';
-import winston from 'winston';
 
 import { config } from '@/config';
-import { datetimeFormat, logFilePath } from '@/constants/logs';
-import { timezone } from '@/constants/time';
+import { logger } from '@/utils/logger';
 
-const logger = winston.createLogger({
-  level: 'info',
-  format: winston.format.combine(
-    winston.format.colorize({ level: true }),
-    winston.format.timestamp({
-      format: () => {
-        const zonedDate = toZonedTime(new Date(), timezone);
-        return format(zonedDate, datetimeFormat);
-      },
-    }),
-    winston.format.align(),
-    winston.format.printf(({ timestamp, level, message }) => {
-      return `${timestamp} [${level}]: ${message}`;
-    })
-  ),
-  transports: [
-    new winston.transports.Console(),
-    new winston.transports.File({
-      filename: logFilePath,
-      format: winston.format.uncolorize(),
-    }),
-  ],
-});
-
-const loggerMiddleware: MiddlewareFn = async (ctx, next) => {
+export const loggerMiddleware: MiddlewareFn = async (ctx, next) => {
   const { username, id } = ctx.from ?? {};
 
   const { text } = ctx.message ?? {};
@@ -52,5 +25,3 @@ const loggerMiddleware: MiddlewareFn = async (ctx, next) => {
   }
   await next();
 };
-
-export default loggerMiddleware;
