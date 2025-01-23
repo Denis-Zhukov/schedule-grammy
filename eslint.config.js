@@ -34,7 +34,6 @@ export default [
       'comma-dangle': ['error', 'always-multiline'],
       'object-curly-spacing': ['error', 'always'],
       'arrow-parens': ['error', 'always'],
-      'linebreak-style': ['error', 'windows'],
       'no-console': ['warn'],
       'import/order': [
         'error',

@@ -13,10 +13,14 @@
     "lint:check": "eslint --fix --no-ignore",
     "format": "pnpm run prettier && pnpm run lint",
     "format:check": "pnpm run prettier:check && pnpm run lint:check",
-    "prepare": "husky"
+    "prepare": "husky",
+    "lint-staged": "lint-staged"
   },
   "lint-staged": {
-    "**/*": "prettier --write --ignore-unknown"
+    "**/*.{js,ts,tsx}": [
+      "eslint --fix",
+      "prettier --write"
+    ]
   },
   "keywords": [],
   "author": "",

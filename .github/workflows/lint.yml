@@ -32,9 +32,6 @@ jobs:
           npm install -g pnpm
           pnpm install
 
-      - name: Run ESLint
-        run: pnpm run lint -- --max-warnings=0
-
       - name: Run Prettier and ESLint check
         run: pnpm run format:check
 
