@@ -1,6 +1,6 @@
+import importPlugin from 'eslint-plugin-import';
 import globals from 'globals';
 import tseslint from 'typescript-eslint';
-import importPlugin from 'eslint-plugin-import';
 
 /** @type {import('eslint').Linter.Config[]} */
 export default [
@@ -34,7 +34,6 @@ export default [
       'comma-dangle': ['error', 'always-multiline'],
       'object-curly-spacing': ['error', 'always'],
       'arrow-parens': ['error', 'always'],
-      'linebreak-style': ['error', 'windows'],
       'no-console': ['warn'],
       'import/order': [
         'error',

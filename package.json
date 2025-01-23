@@ -9,11 +9,18 @@
     "dev": "nodemon",
     "prettier": "prettier . --write",
     "lint": "eslint ./src --fix",
+    "prettier:check": "prettier --check src/commands/start.ts",
+    "lint:check": "eslint --fix --no-ignore",
     "format": "pnpm run prettier && pnpm run lint",
-    "prepare": "husky"
+    "format:check": "pnpm run prettier:check && pnpm run lint:check",
+    "prepare": "husky",
+    "lint-staged": "lint-staged"
   },
   "lint-staged": {
-    "**/*": "prettier --write --ignore-unknown"
+    "**/*.{js,ts,tsx}": [
+      "eslint --fix",
+      "prettier --write"
+    ]
   },
   "keywords": [],
   "author": "",
