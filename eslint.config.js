@@ -29,7 +29,7 @@ export default [
   },
   {
     rules: {
-      semi: ['error', 'always'],
+      semi: ['warn', 'always'],
       quotes: ['error', 'single'],
       'comma-dangle': ['error', 'always-multiline'],
       'object-curly-spacing': ['error', 'always'],

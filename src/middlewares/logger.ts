@@ -13,6 +13,10 @@ export const loggerMiddleware: MiddlewareFn = async (ctx, next) => {
 
   if (text) {
     logger.info(`User ${userIdentifier} sent message: ${text}`);
+  } else if (ctx.callbackQuery) {
+    logger.info(
+      `User ${userIdentifier} sent message: [action] ${ctx.callbackQuery.data}`
+    );
   } else {
     const uniqueId = v4();
 
@@ -21,7 +25,7 @@ export const loggerMiddleware: MiddlewareFn = async (ctx, next) => {
     });
     await ctx.copyMessage(config.ADMIN_ID);
 
-    logger.info(`User ${userIdentifier} sent message: [${uniqueId}]`);
+    logger.info(`User ${userIdentifier} sent non-message: [${uniqueId}]`);
   }
   await next();
 };

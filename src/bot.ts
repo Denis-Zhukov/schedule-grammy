@@ -1,37 +1,38 @@
-import { Bot, GrammyError, HttpError } from 'grammy';
+import { autoRetry } from '@grammyjs/auto-retry';
+import { Bot, session } from 'grammy';
 
 import { config } from '@/config';
-import { loadCommands } from '@/loader';
+import { loadCommands, loadHears } from '@/loader';
 import { loggerMiddleware } from '@/middlewares/logger';
 import { privateOnlyMiddleware } from '@/middlewares/private-only';
-import { registerTasks } from '@/tasks';
-import { logger } from '@/utils/logger';
+import { setConfigMiddleware } from '@/middlewares/set-config-middleware';
+import { registerCronTasks } from '@/tasks';
+import { CustomContext } from '@/types';
+import { setErrorHandler } from '@/utils/set-error-handler';
+import { setMyCommands } from '@/utils/set-my-commands';
 
-registerTasks();
+export const bot = new Bot<CustomContext>(config.API_TOKEN);
 
-export const bot = new Bot(config.API_TOKEN);
+registerCronTasks(bot);
+
+setErrorHandler(bot);
+bot.api.config.use(
+  autoRetry({
+    maxRetryAttempts: 1,
+    maxDelaySeconds: 5,
+  })
+);
+bot.use(session({ initial: () => ({}) }));
+await setMyCommands(bot);
 
 bot.use(privateOnlyMiddleware);
 bot.use(loggerMiddleware);
+bot.use(setConfigMiddleware);
 
 await loadCommands(bot);
+await loadHears(bot);
 
-bot.catch((err) => {
-  const e = err.error;
-  if (e instanceof GrammyError) {
-    logger.error('Error in request:', e.description);
-  } else if (e instanceof HttpError) {
-    logger.error('Could not contact Telegram:', e);
-  } else {
-    logger.error('Unknown error:', e);
-  }
-
-  logger.error(`STACK: ${err.stack}:`);
-  err.ctx.reply('У нас произошла ошибка, извините :c');
-  bot.api.sendMessage(
-    config.ADMIN_ID,
-    'Произошла ошибка, глянь, что случилось'
-  );
-});
+process.once('SIGINT', () => bot.stop());
+process.once('SIGTERM', () => bot.stop());
 
 await bot.start();
