@@ -15,7 +15,7 @@ export const loggerMiddleware: MiddlewareFn = async (ctx, next) => {
     logger.info(`User ${userIdentifier} sent message: ${text}`);
   } else if (ctx.callbackQuery) {
     logger.info(
-      `User ${userIdentifier} sent message: [action] ${ctx.callbackQuery.data}`
+      `User ${userIdentifier} sent message: [callback-query] ${ctx.callbackQuery.data}`,
     );
   } else if (ctx.update.my_chat_member?.new_chat_member.status === 'kicked') {
     logger.info(`User ${userIdentifier} block bot`);
@@ -29,7 +29,7 @@ export const loggerMiddleware: MiddlewareFn = async (ctx, next) => {
           `Message ID: \`${uniqueId}\``,
           {
             parse_mode: 'MarkdownV2',
-          }
+          },
         );
         await ctx.copyMessage(config.ADMIN_ID);
 
@@ -38,7 +38,7 @@ export const loggerMiddleware: MiddlewareFn = async (ctx, next) => {
     } catch (err) {
       logger.error(
         `Unexpected error to copy message from ${userIdentifier}`,
-        err
+        err,
       );
     }
   }

@@ -2,7 +2,15 @@ import { InlineKeyboard } from 'grammy';
 
 import { LanguageCode, languages } from '@/constants/languages';
 
-export const generateMoreInlineKeyboard = (lang: LanguageCode) => {
+type GenerateMoreInlineKeyboardParams = {
+  lang: LanguageCode;
+  isTeacher: boolean;
+};
+
+export const generateMoreInlineKeyboard = ({
+  lang,
+  isTeacher,
+}: GenerateMoreInlineKeyboardParams) => {
   const labels = languages[lang].moreInlineKeyboard;
 
   const inlineKeyboardItems = [
@@ -12,9 +20,12 @@ export const generateMoreInlineKeyboard = (lang: LanguageCode) => {
     [labels.contacts, 'contacts'],
   ];
 
+  if (!isTeacher)
+    inlineKeyboardItems.unshift([labels.imTeacher, 'set-teacher']);
+
   return new InlineKeyboard(
     inlineKeyboardItems.map(([label, data]) => [
       { text: label, callback_data: data },
-    ])
+    ]),
   );
 };

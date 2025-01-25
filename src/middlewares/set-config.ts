@@ -9,7 +9,7 @@ export const setConfig = async (ctx: CustomContext, next: NextFunction) => {
 
   ctx.config = {
     isAdmin: ctx.from?.id === config.ADMIN_ID,
-    lang: lang in languages ? lang : 'ru',
+    lang: lang in languages ? lang : 'en',
   };
 
   await next();

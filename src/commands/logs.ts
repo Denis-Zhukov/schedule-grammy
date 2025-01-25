@@ -1,11 +1,10 @@
-import { Context, InputFile } from 'grammy';
+import { InputFile } from 'grammy';
 
-import { logFilePath } from '../constants/logs';
-import { config } from '@/config';
+import { logFilePath } from '@/constants/logs';
+import { CustomContext } from '@/types';
 
-const logs = async (ctx: Context) => {
-  const id = ctx.from?.id;
-  if (id !== config.ADMIN_ID) return;
+const logs = async (ctx: CustomContext) => {
+  if (!ctx.config.isAdmin) return;
 
   const logs = new InputFile(logFilePath);
   await ctx.replyWithDocument(logs);

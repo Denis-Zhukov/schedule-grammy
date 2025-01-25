@@ -1,40 +1,74 @@
-import { readdir } from 'fs/promises';
+import * as fs from 'fs/promises';
+import { Middleware } from 'grammy';
 import * as path from 'path';
 
-import { CustomBot } from '@/types';
+import { CustomBot, CustomContext } from '@/types';
 
-export async function loadCommands(bot: CustomBot) {
-  const commandsPath = path.resolve(__dirname, 'commands');
-  const files = await readdir(commandsPath);
+type FileHandler = (
+  bot: CustomBot,
+  pattern: string | string[],
+  handler: Middleware<CustomContext>,
+) => void;
 
-  for (const file of files) {
-    if (file.endsWith('.ts')) {
-      const command = await import(path.join(commandsPath, file));
-      const commandName = file.replace(/\.ts$/, '');
+async function loadFilesFromDirectory(
+  bot: CustomBot,
+  directoryPath: string,
+  handler: FileHandler,
+  transform?: (
+    module: unknown,
+    fileName: string,
+  ) => [string | string[], Middleware<CustomContext>],
+) {
+  const dirents = await fs.readdir(directoryPath, {
+    withFileTypes: true,
+    recursive: true,
+  });
 
-      if (command.default) {
-        bot.command(commandName, command.default);
+  for (const dirent of dirents) {
+    if (dirent.isFile()) {
+      const module = await import(path.resolve(dirent.parentPath, dirent.name));
+      const fileName = dirent.name.replace(/\.ts$/, '');
+
+      if (module.default) {
+        const [pattern, transformedHandler] = transform
+          ? transform(module.default, fileName)
+          : [fileName, module.default];
+
+        handler(bot, pattern, transformedHandler);
       } else {
-        throw new Error(`Command /${commandName} is not exported by default`);
+        throw new Error(`${fileName} is not exported by default`);
       }
     }
   }
 }
 
+export async function loadCommands(bot: CustomBot) {
+  await loadFilesFromDirectory(
+    bot,
+    path.resolve(__dirname, 'commands'),
+    (bot, commandName, command) => {
+      bot.command(commandName, command);
+    },
+  );
+}
+
 export async function loadHears(bot: CustomBot) {
-  const hearsPath = path.resolve(__dirname, 'hears');
-  const files = await readdir(hearsPath);
+  await loadFilesFromDirectory(
+    bot,
+    path.resolve(__dirname, 'hears'),
+    (bot, pattern, handler) => {
+      bot.hears(pattern, handler);
+    },
+    (module) => module as [string, Middleware<CustomContext>],
+  );
+}
 
-  for (const file of files) {
-    if (file.endsWith('.ts')) {
-      const hear = await import(path.join(hearsPath, file));
-
-      if (hear.default) {
-        const [pattern, handler] = hear.default;
-        bot.hears(pattern, handler);
-      } else {
-        throw new Error(`Hears handler ${file} is not exported by default`);
-      }
-    }
-  }
+export async function loadCallbackQueries(bot: CustomBot) {
+  await loadFilesFromDirectory(
+    bot,
+    path.resolve(__dirname, 'callback-queries'),
+    (bot, queryName, callbackQuery) => {
+      bot.callbackQuery(queryName, callbackQuery);
+    },
+  );
 }

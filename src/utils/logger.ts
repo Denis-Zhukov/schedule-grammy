@@ -17,7 +17,7 @@ export const logger = winston.createLogger({
     winston.format.align(),
     winston.format.printf(({ timestamp, level, message }) => {
       return `${timestamp} [${level}]: ${message}`;
-    })
+    }),
   ),
   transports: [
     new winston.transports.Console(),

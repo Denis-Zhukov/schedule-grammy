@@ -15,11 +15,15 @@ export const en = {
     `Hello, *${name}* 🤗\nThis bot is designed to help you with the schedule at school SSH\\-27`,
   menuSet: 'Buttons are set',
   moreInlineKeyboard: {
+    imTeacher: "I'm a teacher",
     adminSchedule: 'Duty administrator',
     callSchedule: 'Call schedule',
     reset: 'Reset settings',
     contacts: 'Contacts',
   },
+  answerToImTeacher: (username: string) =>
+    `To confirm that you are a teacher, contact ${username}`,
+  contacts: (username: string) => `Developer: ${username}`,
   error: 'Oops, something went wrong 😬',
 };
 
@@ -40,17 +44,21 @@ export const ru: typeof en = {
   ],
   menuSet: 'Кнопки установлены',
   moreInlineKeyboard: {
+    imTeacher: 'Я учитель',
     adminSchedule: 'Дежурный администратор',
     callSchedule: 'Расписание звонков',
     reset: 'Сбросить настройки',
     contacts: 'Контакты',
   },
+  answerToImTeacher: (username: string) =>
+    `Для подтверждения того, что вы учитель свяжитесь с ${username}`,
+  contacts: (username: string) => `Разработчик: ${username}`,
   error: 'Упс, что-то пошло не так 😬',
-};
+} as const;
 
 export const languages = {
   en,
   ru,
-} as const;
+};
 
 export type LanguageCode = keyof typeof languages;

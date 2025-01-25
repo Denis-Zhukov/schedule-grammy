@@ -22,7 +22,7 @@ export const setErrorHandler = (bot: CustomBot) => {
     await err.ctx.reply(languages[lang].error);
     await bot.api.sendMessage(
       config.ADMIN_ID,
-      'There was been an error, look what happened.'
+      'There was been an error, look what happened.',
     );
   });
 };
