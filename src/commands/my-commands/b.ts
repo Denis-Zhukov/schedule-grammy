@@ -1,5 +1,5 @@
-import { CustomContext } from '../types';
-import { generateKeyboardMenu } from '../utils/set-keyboard-menu';
+import { CustomContext } from '../../types';
+import { generateKeyboardMenu } from '../../utils/set-keyboard-menu';
 import { languages } from '@/constants/languages';
 
 const resetMenu = async (ctx: CustomContext) => {

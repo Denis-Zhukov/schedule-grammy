@@ -24,6 +24,12 @@ export const en = {
   answerToImTeacher: (username: string) =>
     `To confirm that you are a teacher, contact ${username}`,
   contacts: (username: string) => `Developer: ${username}`,
+  isTeacherNow: (surname: string | null, name: string | null) =>
+    `${surname} ${name} is now a teacher`,
+  isNotTeacherNow: (surname: string | null, name: string | null) =>
+    `${surname} ${name} is no longer a teacher`,
+  isNotTeacher: (userId: string) => `${userId} is not a teacher`,
+  notFound: 'User is not found',
   error: 'Oops, something went wrong 😬',
 };
 
@@ -53,6 +59,12 @@ export const ru: typeof en = {
   answerToImTeacher: (username: string) =>
     `Для подтверждения того, что вы учитель свяжитесь с ${username}`,
   contacts: (username: string) => `Разработчик: ${username}`,
+  isTeacherNow: (surname: string | null, name: string | null) =>
+    `${surname} ${name} теперь учитель`,
+  isNotTeacherNow: (surname: string | null, name: string | null) =>
+    `${surname} ${name} теперь не учитель`,
+  isNotTeacher: (userId: string) => `${userId} не является учитель`,
+  notFound: 'Пользователь не найден',
   error: 'Упс, что-то пошло не так 😬',
 } as const;
 

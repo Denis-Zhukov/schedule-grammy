@@ -47,7 +47,7 @@ export async function loadCommands(bot: CustomBot) {
     bot,
     path.resolve(__dirname, 'commands'),
     (bot, commandName, command) => {
-      bot.command(commandName, command);
+      bot.command((<string>commandName).replaceAll('-', '_'), command);
     },
   );
 }
