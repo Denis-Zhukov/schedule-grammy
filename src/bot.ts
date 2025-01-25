@@ -5,7 +5,7 @@ import { config } from '@/config';
 import { loadCommands, loadHears } from '@/loader';
 import { loggerMiddleware } from '@/middlewares/logger';
 import { privateOnlyMiddleware } from '@/middlewares/private-only';
-import { setConfigMiddleware } from '@/middlewares/set-config-middleware';
+import { setConfig } from '@/middlewares/set-config';
 import { registerCronTasks } from '@/tasks';
 import { CustomContext } from '@/types';
 import { setErrorHandler } from '@/utils/set-error-handler';
@@ -27,7 +27,7 @@ await setMyCommands(bot);
 
 bot.use(privateOnlyMiddleware);
 bot.use(loggerMiddleware);
-bot.use(setConfigMiddleware);
+bot.use(setConfig);
 
 await loadCommands(bot);
 await loadHears(bot);

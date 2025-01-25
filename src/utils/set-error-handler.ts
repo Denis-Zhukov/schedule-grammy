@@ -8,7 +8,7 @@ import { CustomBot } from '@/types';
 export const setErrorHandler = (bot: CustomBot) => {
   bot.catch(async (err) => {
     const e = err.error;
-    const lang = err.ctx.config.lang;
+    const lang = err.ctx.config?.lang ?? 'en';
 
     if (e instanceof GrammyError) {
       logger.error('Error in request:', e.description);
