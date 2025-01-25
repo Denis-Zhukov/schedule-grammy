@@ -1,11 +1,12 @@
-import { Context } from 'grammy';
-
+import { languages } from '../constants/languages';
+import { CustomContext } from '../types';
 import { prisma } from '@/utils/prisma-client';
 
-const start = async (ctx: Context) => {
-  const { id, first_name, last_name, username } = ctx.from ?? {};
+const start = async (ctx: CustomContext) => {
+  const lang = ctx.config.lang;
 
-  const name = first_name ?? last_name ?? username ?? 'Пользователь';
+  const { id, first_name, last_name, username } = ctx.from ?? {};
+  const name = first_name ?? last_name ?? username ?? languages[lang].user;
 
   await prisma.user.upsert({
     where: { id },
@@ -22,10 +23,9 @@ const start = async (ctx: Context) => {
     },
   });
 
-  await ctx.reply(
-    `Привет, *${name}* 🤗\nДанный бот предназначен помочь вам с расписанием в школе СШ\\-27`,
-    { parse_mode: 'MarkdownV2' }
-  );
+  await ctx.reply(languages[lang].greetings(name), {
+    parse_mode: 'MarkdownV2',
+  });
 };
 
 export default start;

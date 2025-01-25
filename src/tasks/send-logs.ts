@@ -1,10 +1,10 @@
 import { InputFile } from 'grammy';
 
-import { bot } from '@/bot';
 import { config } from '@/config';
 import { logFilePath } from '@/constants/logs';
+import { CustomBot } from '@/types';
 
-export async function sendLogs() {
+export async function sendLogs(bot: CustomBot) {
   const chatId = config.ADMIN_ID;
 
   if (!chatId) {
