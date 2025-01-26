@@ -70,5 +70,6 @@ export async function loadCallbackQueries(bot: CustomBot) {
     (bot, queryName, callbackQuery) => {
       bot.callbackQuery(queryName, callbackQuery);
     },
+    (module) => module as [string, Middleware<CustomContext>],
   );
 }

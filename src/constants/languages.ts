@@ -1,3 +1,7 @@
+import { format } from 'date-fns-tz';
+
+import { weekOfDay } from '@/types';
+
 export const en = {
   myCommands: {
     b: 'Buttons disappeared',
@@ -20,6 +24,7 @@ export const en = {
     callSchedule: 'Call schedule',
     reset: 'Reset settings',
     contacts: 'Contacts',
+    schedule: 'Configure schedule',
   },
   answerToImTeacher: (username: string) =>
     `To confirm that you are a teacher, contact ${username}`,
@@ -30,6 +35,44 @@ export const en = {
     `${surname} ${name} is no longer a teacher`,
   isNotTeacher: (userId: string) => `${userId} is not a teacher`,
   notFound: 'User is not found',
+  success: 'Success',
+  gap: '🙌 *Gap*',
+  lesson: ({
+    classroom,
+    timeEnd,
+    timeStart,
+    subclass,
+    className,
+    teacher: { surname, name, patronymic },
+    canteen,
+    lead,
+  }: weekOfDay) => {
+    let subclassName = '';
+    if (subclass) {
+      subclassName = ['СИЗО', 'Платные'].includes(subclass)
+        ? ` ${subclass}`
+        : subclass;
+    }
+
+    const classroomName = classroom?.replace('-', '\\-') ?? '';
+    const teacher = `${surname} ${name[0]}.${patronymic?.[0]}.`;
+
+    const start = format(timeStart, 'HH:mm');
+    const end = format(timeEnd, 'HH:mm');
+
+    return `${className}*${subclassName}* ${classroomName} \`${teacher}\` _ __${start}\\-${end}__ _${
+      canteen ? '\n\t\t\t\t\t\t*Отвести в столовку* 🍽' : ''
+    }${lead ? '\n\t\t\t\t\t\t*Вывести из школы* 🏃‍➡️' : ''}`;
+  },
+  daysOfWeek: [
+    ['Monday', 'Monday'],
+    ['Tuesday', 'Tuesday'],
+    ['Wednesday', 'Wednesday'],
+    ['Thursday', 'Thursday'],
+    ['Friday', 'Friday'],
+    ['Saturday', 'Saturday'],
+  ],
+  back: 'Back',
   error: 'Oops, something went wrong 😬',
 };
 
@@ -55,6 +98,7 @@ export const ru: typeof en = {
     callSchedule: 'Расписание звонков',
     reset: 'Сбросить настройки',
     contacts: 'Контакты',
+    schedule: 'Управление расписанием',
   },
   answerToImTeacher: (username: string) =>
     `Для подтверждения того, что вы учитель свяжитесь с ${username}`,
@@ -65,6 +109,44 @@ export const ru: typeof en = {
     `${surname} ${name} теперь не учитель`,
   isNotTeacher: (userId: string) => `${userId} не является учитель`,
   notFound: 'Пользователь не найден',
+  success: 'Успешно',
+  gap: '🙌 *Форточка*',
+  lesson: ({
+    classroom,
+    timeEnd,
+    timeStart,
+    subclass,
+    className,
+    teacher: { surname, name, patronymic },
+    canteen,
+    lead,
+  }: weekOfDay) => {
+    let subclassName = '';
+    if (subclass) {
+      subclassName = ['СИЗО', 'Платные'].includes(subclass)
+        ? ` ${subclass}`
+        : subclass;
+    }
+
+    const classroomName = classroom?.replace('-', '\\-') ?? '';
+    const teacher = `${surname} ${name[0]}.${patronymic?.[0]}.`;
+
+    const start = format(timeStart, 'HH:mm');
+    const end = format(timeEnd, 'HH:mm');
+
+    return `${className}*${subclassName}* ${classroomName} \`${teacher}\` _ __${start}\\-${end}__ _${
+      canteen ? '\n\t\t\t\t\t\t*Отвести в столовку* 🍽' : ''
+    }${lead ? '\n\t\t\t\t\t\t*Вывести из школы* 🏃‍➡️' : ''}`;
+  },
+  daysOfWeek: [
+    ['Понедельник', 'Monday'],
+    ['Вторник', 'Tuesday'],
+    ['Среда', 'Wednesday'],
+    ['Четверг', 'Thursday'],
+    ['Пятница', 'Friday'],
+    ['Суббота', 'Saturday'],
+  ],
+  back: 'Назад',
   error: 'Упс, что-то пошло не так 😬',
 } as const;
 

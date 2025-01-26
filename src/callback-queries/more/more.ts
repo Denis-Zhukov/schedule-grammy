@@ -1,9 +1,8 @@
-import { LanguageCode, languages } from '@/constants/languages';
 import { CustomContext } from '@/types';
 import { generateMoreInlineKeyboard } from '@/utils/inline-keyboards/generate-more-inline-keyboard';
 import { prisma } from '@/utils/prisma-client';
 
-const more = async (ctx: CustomContext) => {
+const imTeacher = async (ctx: CustomContext) => {
   const lang = ctx.config.lang;
 
   const id = ctx.from!.id;
@@ -14,15 +13,9 @@ const more = async (ctx: CustomContext) => {
     isTeacher: !!teacher,
   });
 
-  await ctx.reply('-', {
+  await ctx.editMessageReplyMarkup({
     reply_markup: inlineKeyboard,
   });
 };
 
-const routes: string[] = [];
-
-Object.keys(languages).forEach((lang) => {
-  routes.push(languages[lang as LanguageCode].keyboardMenuItems[1].at(-1)!);
-});
-
-export default [routes, more];
+export default ['more', imTeacher];

@@ -8,13 +8,17 @@ datasource db {
 }
 
 model User {
-  id       Int     @id
+  id Int @id
+
   username String? @map("username")
   surname  String? @map("surname")
   name     String? @map("name")
 
-  createdAt DateTime @default(now()) @map("created_at")
-  updatedAt DateTime @updatedAt @map("updated_at")
+  createdAt DateTime @default(now()) @map("created_at") @db.Timestamptz()
+  updatedAt DateTime @updatedAt @map("updated_at") @db.Timestamptz()
+
+  followingTeacherId String?
+  followingTeacher   Teacher? @relation(name: "FollowingUserTeacher", fields: [followingTeacherId], references: [id])
 
   teacher Teacher?
 
@@ -22,7 +26,8 @@ model User {
 }
 
 model Teacher {
-  id         String  @id @default(uuid())
+  id String @id @default(uuid())
+
   surname    String
   name       String
   patronymic String?
@@ -30,8 +35,43 @@ model Teacher {
   userId Int  @unique @map("user_id")
   user   User @relation(fields: [userId], references: [id])
 
-  createdAt DateTime @default(now()) @map("created_at")
-  updatedAt DateTime @updatedAt @map("updated_at")
+  createdAt DateTime @default(now()) @map("created_at") @db.Timestamptz()
+  updatedAt DateTime @updatedAt @map("updated_at") @db.Timestamptz()
+
+  followedUsers User[] @relation(name: "FollowingUserTeacher")
+
+  Schedule Schedule[]
 
   @@map("teachers")
+}
+
+enum DayOfWeek {
+  MONDAY
+  TUESDAY
+  WEDNESDAY
+  THURSDAY
+  FRIDAY
+  SATURDAY
+  SUNDAY
+}
+
+model Schedule {
+  id String @id @default(uuid())
+
+  dayOfWeek DayOfWeek
+  lesson    String
+  class     Int
+  subclass  String
+  timeStart DateTime  @db.Timetz()
+  timeEnd   DateTime  @db.Timetz()
+  classroom String
+
+  canteen Boolean @default(false)
+  lead    Boolean @default(false)
+
+  teacherId String  @map("teacher_id")
+  teacher   Teacher @relation(fields: [teacherId], references: [id])
+
+  @@unique([teacherId, dayOfWeek, lesson, class, subclass, timeStart, timeEnd])
+  @@map("schedule")
 }

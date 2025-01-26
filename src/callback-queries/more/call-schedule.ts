@@ -9,4 +9,4 @@ const callSchedule = async (ctx: CustomContext) => {
   await ctx.answerCallbackQuery();
 };
 
-export default callSchedule;
+export default ['call-schedule', callSchedule];

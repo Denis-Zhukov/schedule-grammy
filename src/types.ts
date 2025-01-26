@@ -1,3 +1,4 @@
+import { Teacher } from '@prisma/client';
 import { Bot, Context, SessionFlavor } from 'grammy';
 
 import { LanguageCode } from '@/constants/languages';
@@ -23,3 +24,14 @@ export type CustomContext = {
   SessionFlavor<SessionData>;
 
 export type CustomBot = Bot<CustomContext>;
+
+export type weekOfDay = {
+  className: number;
+  subclass: string;
+  timeStart: Date;
+  timeEnd: Date;
+  classroom: string;
+  teacher: Teacher;
+  canteen: boolean;
+  lead: boolean;
+};

@@ -3,6 +3,7 @@ import { Bot, session } from 'grammy';
 
 import { config } from '@/config';
 import { loadCommands, loadHears, loadCallbackQueries } from '@/loader';
+import { registerGetDocument } from '@/message-handler/document';
 import { loggerMiddleware } from '@/middlewares/logger';
 import { privateOnlyMiddleware } from '@/middlewares/private-only';
 import { setConfig } from '@/middlewares/set-config';
@@ -32,6 +33,7 @@ bot.use(setConfig);
 await loadCommands(bot);
 await loadHears(bot);
 await loadCallbackQueries(bot);
+registerGetDocument(bot);
 
 process.once('SIGINT', () => bot.stop());
 process.once('SIGTERM', () => bot.stop());

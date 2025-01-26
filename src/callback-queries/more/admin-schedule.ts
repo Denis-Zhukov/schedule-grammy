@@ -9,4 +9,4 @@ const adminSchedule = async (ctx: CustomContext) => {
   await ctx.answerCallbackQuery();
 };
 
-export default adminSchedule;
+export default ['admin-schedule', adminSchedule];
