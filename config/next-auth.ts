@@ -36,8 +36,11 @@ export const authOptions: NextAuthOptions = {
       session.user.id = +session.user.email;
       return session;
     },
-    redirect({ baseUrl }) {
-      return config.NEXTAUTH_URL || baseUrl;
+    redirect({ baseUrl, url }) {
+      if (url.startsWith(baseUrl)) {
+        return url;
+      }
+      return baseUrl;
     },
   },
   pages: pages,
