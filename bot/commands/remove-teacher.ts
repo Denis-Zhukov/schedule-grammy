@@ -27,4 +27,4 @@ const removeTeacher = async (ctx: CustomContext) => {
   }
 };
 
-export default removeTeacher;
+export default ['remove_teacher', removeTeacher];

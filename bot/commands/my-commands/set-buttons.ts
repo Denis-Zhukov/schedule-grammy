@@ -2,7 +2,7 @@ import { languages } from '@bot/constants/languages';
 import { CustomContext } from '@bot/types';
 import { generateKeyboardMenu } from '@bot/utils/set-keyboard-menu';
 
-const b = async (ctx: CustomContext) => {
+const setButtons = async (ctx: CustomContext) => {
   await ctx.setChatMenuButton({
     menu_button: { type: 'commands' },
   });
@@ -14,4 +14,4 @@ const b = async (ctx: CustomContext) => {
   await ctx.reply(languages[lang].menuSet, { reply_markup: keyboardMenu });
 };
 
-export default b;
+export default ['b', setButtons];

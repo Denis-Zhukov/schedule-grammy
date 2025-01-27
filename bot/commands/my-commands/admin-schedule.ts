@@ -8,4 +8,4 @@ const adminSchedule = async (ctx: CustomContext) => {
   await ctx.replyWithPhoto(file);
 };
 
-export default adminSchedule;
+export default ['admin_schedule', adminSchedule];

@@ -10,4 +10,4 @@ const logs = async (ctx: CustomContext) => {
   await ctx.replyWithDocument(logs);
 };
 
-export default logs;
+export default ['logs', logs];

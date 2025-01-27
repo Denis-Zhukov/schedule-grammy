@@ -8,4 +8,4 @@ const contacts = async (ctx: CustomContext) => {
   await ctx.reply(languages[lang].contacts(config.ADMIN_USERNAME));
 };
 
-export default contacts;
+export default ['contacts', contacts];

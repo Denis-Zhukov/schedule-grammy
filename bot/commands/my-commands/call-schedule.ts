@@ -8,4 +8,4 @@ const callSchedule = async (ctx: CustomContext) => {
   await ctx.replyWithPhoto(file);
 };
 
-export default callSchedule;
+export default ['call_schedule', callSchedule];

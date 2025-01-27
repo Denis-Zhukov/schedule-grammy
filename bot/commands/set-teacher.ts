@@ -43,4 +43,4 @@ const setTeacher = async (ctx: CustomContext) => {
   }
 };
 
-export default setTeacher;
+export default ['set_teacher', setTeacher];

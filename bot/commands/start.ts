@@ -28,4 +28,4 @@ const start = async (ctx: CustomContext) => {
   });
 };
 
-export default start;
+export default ['start', start];

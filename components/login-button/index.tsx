@@ -7,6 +7,9 @@ export const LoginButton = () => {
   return (
     <TelegramLoginButton
       botUsername={config.USERNAME_BOT}
+      buttonSize="large"
+      cornerRadius={20}
+      showAvatar={true}
       onAuthCallback={(data) => {
         if (!data || typeof data !== 'object') {
           console.error('Invalid auth data received:', data);

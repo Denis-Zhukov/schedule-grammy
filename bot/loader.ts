@@ -1,24 +1,29 @@
-import { CallbackQueryMiddleware, HearsMiddleware } from 'grammy';
+import {
+  CallbackQueryMiddleware,
+  CommandMiddleware,
+  HearsMiddleware,
+} from 'grammy';
 
 import { CustomBot, CustomContext } from '@bot/types';
 
 export async function loadCommands(bot: CustomBot) {
   const commands = [
     await import('@bot/commands/start'),
-    await import('@bot/commands/set-teacher'),
-    await import('@bot/commands/remove-teacher'),
-    await import('@bot/commands/logs'),
     await import('@bot/commands/my-commands/contacts'),
     await import('@bot/commands/my-commands/set-buttons'),
     await import('@bot/commands/my-commands/admin-schedule'),
     await import('@bot/commands/my-commands/call-schedule'),
+    await import('@bot/commands/logs'),
+    await import('@bot/commands/set-teacher'),
+    await import('@bot/commands/remove-teacher'),
   ];
 
   commands.forEach((command) => {
-    const commandName = command.default.name
-      .replace(/[A-Z]/g, (match) => `_${match.toLowerCase()}`)
-      .toLowerCase();
-    bot.command(commandName, command.default);
+    const [commandName, commandCallback] = command.default;
+    bot.command(
+      commandName as string,
+      commandCallback as CommandMiddleware<CustomContext>,
+    );
   });
 }
 
