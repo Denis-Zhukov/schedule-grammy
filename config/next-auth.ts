@@ -3,7 +3,7 @@ import { NextAuthOptions } from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
 
 import { pages } from '@/config/pages';
-
+console.log(process.env);
 export const authOptions: NextAuthOptions = {
   providers: [
     CredentialsProvider({
