@@ -12,7 +12,7 @@ const addLesson = async (payload: FormData) => {
 
   const user = await prisma.user.findUnique({
     where: {
-      id: userSessison.user.id,
+      id: +userSessison.user.id,
     },
     select: {
       teacher: { select: { id: true } },

@@ -1,45 +1,49 @@
-import { AuthDataValidator, objectToAuthDataMap } from '@telegram-auth/server';
+import { objectToAuthDataMap, AuthDataValidator } from '@telegram-auth/server';
 import { NextAuthOptions } from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
-import { config } from '@/config';
 import { pages } from '@/config/pages';
+import { logger } from '@bot/utils/logger';
 
 export const authOptions: NextAuthOptions = {
+  debug: true,
+  logger: {
+    debug: (code, metadata) => logger.debug(code, metadata),
+    error: (code, metadata) => logger.error(code, metadata),
+    warn: (code) => logger.warn(code),
+  },
   providers: [
     CredentialsProvider({
-      id: 'telegram',
+      id: 'telegram-login',
       name: 'Telegram Login',
       credentials: {},
       async authorize(_, req) {
-        try {
-          const validator = new AuthDataValidator({
-            botToken: config.API_TOKEN,
-          });
+        const validator = new AuthDataValidator({
+          botToken: `${process.env.API_TOKEN}`,
+        });
 
-          const data = objectToAuthDataMap(req.query || req.body || {});
+        const data = objectToAuthDataMap(req.query || req.body || {});
+        const user = await validator.validate(data);
 
-          const user = await validator.validate(data);
+        if (user.id && user.first_name) {
+          const returned = {
+            id: user.id.toString(),
+            email: user.id.toString(),
+            name: [user.first_name, user.last_name || ''].join(' '),
+            image: user.photo_url,
+          };
 
-          if (user?.id && user?.first_name) {
-            return {
-              id: user.id,
-              email: user.id.toString(),
-              name: `${user.first_name} ${user.last_name || ''}`.trim(),
-            };
-          }
-          return null;
-        } catch (error) {
-          console.error('Error during Telegram authorization:', error);
-          return null;
+          console.log(user);
+
+          return returned;
         }
+        return null;
       },
     }),
   ],
   callbacks: {
     async session({ session }) {
-      if (session?.user?.email) {
-        session.user.id = parseInt(session.user.email, 10);
-      }
+      console.log(session);
+      session.user.id = session.user.email;
       return session;
     },
   },

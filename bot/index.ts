@@ -1,6 +1,5 @@
 import { autoRetry } from '@grammyjs/auto-retry';
 import { Bot, session } from 'grammy';
-import localtunnel from 'localtunnel';
 
 import { config } from '@/config';
 import { loadCallbackQueries, loadCommands, loadHears } from '@bot/loader';
@@ -38,10 +37,3 @@ bot.use(setConfigMiddleware);
 await loadCommands(bot);
 await loadHears(bot);
 await loadCallbackQueries(bot);
-
-if (process.env.NODE_ENV === 'development') {
-  const tunnel = await localtunnel({ port: 80 });
-  await fetch(
-    `https://api.telegram.org/bot${token}/setWebhook?url=${tunnel.url}/api/bot`,
-  );
-}
