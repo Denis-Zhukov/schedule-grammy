@@ -1,7 +1,7 @@
+import { config } from '@bot/config';
 import { MiddlewareFn } from 'grammy';
 import { v4 } from 'uuid';
 
-import { config } from '@bot/config';
 import { logger } from '@bot/utils/logger';
 
 export const loggerMiddleware: MiddlewareFn = async (ctx, next) => {

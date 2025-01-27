@@ -1,6 +1,7 @@
-import { config } from '@bot/config';
 import { LoginButton as TelegramLoginButton } from '@telegram-auth/react';
 import { signIn, SignInAuthorizationParams } from 'next-auth/react';
+
+import { config } from '@/config';
 
 export const LoginButton = () => {
   return (
@@ -9,7 +10,7 @@ export const LoginButton = () => {
       onAuthCallback={(data) => {
         signIn(
           'telegram-login',
-          {},
+          { callbackUrl: config.NEXTAUTH_URL },
           data as unknown as SignInAuthorizationParams,
         );
       }}
