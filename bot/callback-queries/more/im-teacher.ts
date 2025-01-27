@@ -1,5 +1,4 @@
-import { config } from '@bot/config';
-
+import { config } from '@/config';
 import { languages } from '@bot/constants/languages';
 import { CustomContext } from '@bot/types';
 

@@ -1,7 +1,7 @@
-import { config } from '@bot/config';
 import { GrammyError, HttpError } from 'grammy';
 
 import { logger } from './logger';
+import { config } from '@/config';
 import { languages } from '@bot/constants/languages';
 import { CustomBot } from '@bot/types';
 

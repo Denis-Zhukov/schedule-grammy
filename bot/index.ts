@@ -1,8 +1,8 @@
-import { config } from '@bot/config';
 import { autoRetry } from '@grammyjs/auto-retry';
 import { Bot, session } from 'grammy';
 import localtunnel from 'localtunnel';
 
+import { config } from '@/config';
 import { loadCallbackQueries, loadCommands, loadHears } from '@bot/loader';
 import { loggerMiddleware } from '@bot/middlewares/logger';
 import { privateOnlyMiddleware } from '@bot/middlewares/private-only';

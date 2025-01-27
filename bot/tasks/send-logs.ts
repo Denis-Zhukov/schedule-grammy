@@ -1,6 +1,6 @@
-import { config } from '@bot/config';
 import { InputFile } from 'grammy';
 
+import { config } from '@/config';
 import { logFilePath } from '@bot/constants/logs';
 import { CustomBot } from '@bot/types';
 

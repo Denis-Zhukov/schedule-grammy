@@ -1,6 +1,6 @@
-import { config } from '@bot/config';
 import { NextFunction } from 'grammy';
 
+import { config } from '@/config';
 import { languages } from '@bot/constants/languages';
 import { CustomContext } from '@bot/types';
 

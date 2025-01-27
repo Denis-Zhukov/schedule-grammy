@@ -1,4 +1,4 @@
-import { config } from '@bot/config';
+import { config } from '@/config';
 
 export const canteenOrLeaveNotification = async () => {
   const chatId = config.ADMIN_ID;
