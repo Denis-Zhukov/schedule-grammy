@@ -1,5 +1,5 @@
 import { LoginButton as TelegramLoginButton } from '@telegram-auth/react';
-import { signIn, SignInAuthorizationParams } from 'next-auth/react';
+import { signIn } from 'next-auth/react';
 
 import { config } from '@/config';
 
@@ -8,11 +8,12 @@ export const LoginButton = () => {
     <TelegramLoginButton
       botUsername={config.USERNAME_BOT}
       onAuthCallback={(data) => {
-        signIn(
-          'telegram-login',
-          { callbackUrl: '/' },
-          data as unknown as SignInAuthorizationParams,
-        );
+        if (!data || typeof data !== 'object') {
+          console.error('Invalid auth data received:', data);
+          return;
+        }
+
+        signIn('telegram-login', { ...data });
       }}
     />
   );

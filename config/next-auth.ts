@@ -5,7 +5,6 @@ import CredentialsProvider from 'next-auth/providers/credentials';
 import { config } from '@/config';
 import { pages } from '@/config/pages';
 
-console.log(config);
 export const authOptions: NextAuthOptions = {
   providers: [
     CredentialsProvider({
@@ -13,30 +12,38 @@ export const authOptions: NextAuthOptions = {
       name: 'Telegram Login',
       credentials: {},
       async authorize(_, req) {
-        const validator = new AuthDataValidator({
-          botToken: config.API_TOKEN,
-        });
+        try {
+          const validator = new AuthDataValidator({
+            botToken: config.API_TOKEN,
+          });
 
-        const data = objectToAuthDataMap(req.query || req.body || {});
-        const user = await validator.validate(data);
+          const data = objectToAuthDataMap(req.query || req.body || {});
 
-        if (user.id && user.first_name) {
-          return {
-            id: user.id,
-            email: user.id.toString(),
-            name: [user.first_name, user.last_name || ''].join(' '),
-          };
+          const user = await validator.validate(data);
+
+          if (user?.id && user?.first_name) {
+            return {
+              id: user.id,
+              email: user.id.toString(),
+              name: `${user.first_name} ${user.last_name || ''}`.trim(),
+            };
+          }
+          return null;
+        } catch (error) {
+          console.error('Error during Telegram authorization:', error);
+          return null;
         }
-        return null;
       },
     }),
   ],
   callbacks: {
     async session({ session }) {
-      session.user.id = +session.user.email;
+      if (session?.user?.email) {
+        session.user.id = parseInt(session.user.email, 10);
+      }
       return session;
     },
-    redirect({ baseUrl, url }) {
+    async redirect({ url, baseUrl }) {
       if (url.startsWith(baseUrl)) {
         return url;
       }
