@@ -14,8 +14,8 @@ model User {
   surname  String? @map("surname")
   name     String? @map("name")
 
-  createdAt DateTime @default(now()) @map("created_at") @db.Timestamptz()
-  updatedAt DateTime @updatedAt @map("updated_at") @db.Timestamptz()
+  createdAt DateTime @default(now()) @map("created_at") @db.Timestamp()
+  updatedAt DateTime @updatedAt @map("updated_at") @db.Timestamp()
 
   followingTeacherId String?
   followingTeacher   Teacher? @relation(name: "FollowingUserTeacher", fields: [followingTeacherId], references: [id])
@@ -35,8 +35,8 @@ model Teacher {
   userId Int  @unique @map("user_id")
   user   User @relation(fields: [userId], references: [id])
 
-  createdAt DateTime @default(now()) @map("created_at") @db.Timestamptz()
-  updatedAt DateTime @updatedAt @map("updated_at") @db.Timestamptz()
+  createdAt DateTime @default(now()) @map("created_at") @db.Timestamp()
+  updatedAt DateTime @updatedAt @map("updated_at") @db.Timestamp()
 
   followedUsers User[] @relation(name: "FollowingUserTeacher")
 
@@ -62,8 +62,8 @@ model Schedule {
   lesson    String
   class     Int
   subclass  String
-  timeStart DateTime  @db.Timetz()
-  timeEnd   DateTime  @db.Timetz()
+  timeStart DateTime  @db.Time()
+  timeEnd   DateTime  @db.Time()
   classroom String
 
   canteen Boolean @default(false)

@@ -17,7 +17,10 @@ export default [
     settings: {
       'import/resolver': {
         alias: {
-          map: [['@', './src']],
+          map: [
+            ['@', '.'],
+            ['@bot', './bot'],
+          ],
           extensions: ['.js', '.ts', '.tsx', '.json'],
         },
       },
@@ -29,6 +32,7 @@ export default [
   },
   {
     rules: {
+      'import/no-unresolved': 'off',
       semi: ['warn', 'always'],
       quotes: ['error', 'single'],
       'comma-dangle': ['error', 'always-multiline'],
@@ -50,5 +54,8 @@ export default [
         },
       ],
     },
+  },
+  {
+    ignores: ['.next'],
   },
 ];
