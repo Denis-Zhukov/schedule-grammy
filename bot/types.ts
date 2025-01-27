@@ -3,16 +3,6 @@ import { Bot, Context, SessionFlavor } from 'grammy';
 
 import { LanguageCode } from '@bot/constants/languages';
 
-export type Config = {
-  API_TOKEN: string;
-  ADMIN_ID: number;
-  ADMIN_USERNAME: string;
-  USERNAME_BOT: string;
-
-  DATABASE_URL: string;
-  SERVER_URL: string;
-};
-
 export type SessionData = {
   waitingForFile?: boolean;
   selectedDay?: string;
