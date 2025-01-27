@@ -5,5 +5,5 @@ export const config = {
   USERNAME_BOT: process.env.NEXT_PUBLIC_USERNAME_BOT || '',
   DATABASE_URL: process.env.DATABASE_URL || '',
   SERVER_URL: process.env.SERVER_URL || '',
-  NEXTAUTH_URL: process.env.NEXT_PUBLIC_NEXTAUTH_URL || '',
+  NEXTAUTH_URL: process.env.NEXTAUTH_URL || '',
 } as const;

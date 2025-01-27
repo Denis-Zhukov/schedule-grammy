@@ -36,8 +36,8 @@ export const authOptions: NextAuthOptions = {
       session.user.id = +session.user.email;
       return session;
     },
-    redirect() {
-      return '/';
+    redirect({ baseUrl }) {
+      return config.NEXTAUTH_URL || baseUrl;
     },
   },
   pages: pages,

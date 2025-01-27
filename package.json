@@ -9,7 +9,7 @@
     "build": "pnpm prisma generate && next build",
     "start": "next start -p 80",
     "prettier": "prettier . --write",
-    "lint": "eslint . --fix",
+    "lint": "next lint",
     "prettier:check": "prettier --check .",
     "lint:check": "eslint --fix --no-ignore",
     "format": "pnpm run prettier && pnpm run lint",
@@ -27,6 +27,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "-": "^0.0.1",
     "@babel/runtime": "^7.26.7",
     "@grammyjs/auto-retry": "^2.0.2",
     "@prisma/client": "6.2.1",
@@ -51,12 +52,10 @@
     "@babel/preset-env": "^7.26.7",
     "@commitlint/cli": "^19.6.1",
     "@commitlint/config-conventional": "^19.6.0",
+    "@next/eslint-plugin-next": "^15.1.6",
     "@types/localtunnel": "^2.0.4",
-    "@types/node": "^22.10.10",
     "@types/node-cron": "^3.0.11",
-    "@types/react": "19.0.8",
     "babel-loader": "^9.2.1",
-    "eslint": "^9.18.0",
     "eslint-import-resolver-alias": "^1.1.2",
     "eslint-plugin-import": "^2.31.0",
     "globals": "^15.14.0",
@@ -65,8 +64,13 @@
     "localtunnel": "^2.0.2",
     "prettier": "^3.4.2",
     "prisma": "6.2.1",
-    "typescript": "^5.7.3",
-    "typescript-eslint": "^8.21.0"
+    "typescript": "^5",
+    "@types/node": "^20",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "eslint": "^9",
+    "eslint-config-next": "15.1.6",
+    "@eslint/eslintrc": "^3"
   },
   "packageManager": "pnpm@9.15.4"
 }
