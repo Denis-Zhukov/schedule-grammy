@@ -2,8 +2,10 @@ import { AuthDataValidator, objectToAuthDataMap } from '@telegram-auth/server';
 import { NextAuthOptions } from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
 
+import { config } from '@/config';
 import { pages } from '@/config/pages';
-console.log(process.env);
+
+console.log(config);
 export const authOptions: NextAuthOptions = {
   providers: [
     CredentialsProvider({
@@ -12,7 +14,7 @@ export const authOptions: NextAuthOptions = {
       credentials: {},
       async authorize(_, req) {
         const validator = new AuthDataValidator({
-          botToken: process.env.API_TOKEN,
+          botToken: config.API_TOKEN,
         });
 
         const data = objectToAuthDataMap(req.query || req.body || {});
@@ -34,8 +36,8 @@ export const authOptions: NextAuthOptions = {
       session.user.id = +session.user.email;
       return session;
     },
-    redirect({ baseUrl }) {
-      return process.env.NEXTAUTH_URL || baseUrl;
+    redirect() {
+      return '/';
     },
   },
   pages: pages,

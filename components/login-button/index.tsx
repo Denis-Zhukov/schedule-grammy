@@ -10,7 +10,7 @@ export const LoginButton = () => {
       onAuthCallback={(data) => {
         signIn(
           'telegram-login',
-          { callbackUrl: config.NEXTAUTH_URL },
+          { callbackUrl: '/' },
           data as unknown as SignInAuthorizationParams,
         );
       }}
