@@ -23,6 +23,7 @@ export const LoginButton = () => {
       buttonSize="large"
       cornerRadius={20}
       showAvatar={true}
+      requestAccess="write"
       onAuthCallback={handleTelegramAuth}
     />
   );
