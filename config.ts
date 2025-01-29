@@ -6,4 +6,6 @@ export const config = {
   DATABASE_URL: process.env.DATABASE_URL || '',
   SERVER_URL: process.env.SERVER_URL || '',
   NEXTAUTH_URL: process.env.NEXTAUTH_URL || '',
+  AUTH_SECRET: process.env.AUTH_SECRET || '',
+  TOKEN_LIFETIME: Number(process.env.TOKEN_LIFETIME) || 0,
 } as const;

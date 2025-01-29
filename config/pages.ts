@@ -1,3 +1,4 @@
 export const pages = {
-  signIn: '/sign-in',
+  signIn: '/auth/sign-in',
+  error: '/auth/error',
 };

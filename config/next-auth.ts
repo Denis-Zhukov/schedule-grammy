@@ -1,51 +1,73 @@
-import { objectToAuthDataMap, AuthDataValidator } from '@telegram-auth/server';
 import { NextAuthOptions } from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
 import { pages } from '@/config/pages';
-import { logger } from '@bot/utils/logger';
+import jwt, { JsonWebTokenError } from 'jsonwebtoken';
+import { JWT } from 'next-auth/jwt';
+import { config } from '@/config';
+import { NoUserException } from '@/utils/exceptions/no-user-exception';
+import { prisma } from '@bot/utils/prisma-client';
+import { NotTeacherException } from '@/utils/exceptions/not-teacher';
+import { InvalidTokenException } from '@/utils/exceptions/invalid-token';
+import { UnexpectedErrorException } from '@/utils/exceptions/unexpected-error';
 
 export const authOptions: NextAuthOptions = {
-  debug: true,
-  logger: {
-    debug: (code, metadata) => logger.debug(code, metadata),
-    error: (code, metadata) => logger.error(code, metadata),
-    warn: (code) => logger.warn(code),
+  session: {
+    strategy: 'jwt',
+    maxAge: config.TOKEN_LIFETIME,
   },
   providers: [
     CredentialsProvider({
-      id: 'telegram-login',
-      name: 'Telegram Login',
-      credentials: {},
-      async authorize(_, req) {
-        const validator = new AuthDataValidator({
-          botToken: `${process.env.API_TOKEN}`,
-        });
+      id: 'telegram',
+      name: 'Telegram Token',
+      credentials: {
+        token: { label: 'Token', type: 'text' },
+      },
+      async authorize(credentials) {
+        try {
+          const user = jwt.verify(
+            credentials!.token,
+            config.AUTH_SECRET,
+          ) as JWT;
 
-        const data = objectToAuthDataMap(req.query || req.body || {});
-        const user = await validator.validate(data);
+          if (!user) throw new NoUserException();
 
-        if (user.id && user.first_name) {
-          const returned = {
-            id: user.id.toString(),
-            email: user.id.toString(),
-            name: [user.first_name, user.last_name || ''].join(' '),
-            image: user.photo_url,
+          const isTeacher = await prisma.teacher.findUnique({
+            where: { userId: user.id },
+          });
+
+          if (!isTeacher) throw new NotTeacherException();
+
+          return {
+            id: user.id,
+            isTeacher: user.isTeacher,
+            surname: user.surname,
+            name: user.name,
           };
-
-          console.log(user);
-
-          return returned;
+        } catch (e) {
+          if (e instanceof JsonWebTokenError) throw new InvalidTokenException();
+          if (e instanceof NoUserException || e instanceof NotTeacherException)
+            throw e;
+          throw new UnexpectedErrorException();
         }
-        return null;
       },
     }),
   ],
   callbacks: {
-    async session({ session }) {
-      console.log(session);
-      session.user.id = session.user.email;
+    async jwt({ token, user }) {
+      if (user) {
+        token.id = Number(user.id);
+        token.surname = user.surname;
+        token.name = user.name;
+      }
+      return token;
+    },
+    async session({ session, token }) {
+      session.user.id = Number(token.id ?? token.sub);
+      session.user.name = token.name;
+      session.user.surname = token.surname;
+
       return session;
     },
   },
-  pages: pages,
+  pages,
 };
