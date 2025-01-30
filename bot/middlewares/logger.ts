@@ -1,7 +1,7 @@
 import { MiddlewareFn } from 'grammy';
 import { v4 } from 'uuid';
 
-import { config } from '@/config';
+import { envConfig } from '@/env-config';
 import { logger } from '@bot/utils/logger';
 
 export const loggerMiddleware: MiddlewareFn = async (ctx, next) => {
@@ -25,13 +25,13 @@ export const loggerMiddleware: MiddlewareFn = async (ctx, next) => {
 
       {
         await ctx.api.sendMessage(
-          config.ADMIN_ID,
+          envConfig.ADMIN_ID,
           `Message ID: \`${uniqueId}\``,
           {
             parse_mode: 'MarkdownV2',
           },
         );
-        await ctx.copyMessage(config.ADMIN_ID);
+        await ctx.copyMessage(envConfig.ADMIN_ID);
 
         logger.info(`User ${userIdentifier} sent non-message: [${uniqueId}]`);
       }

@@ -37,13 +37,12 @@ const addLesson = async (payload: FormData) => {
   });
 };
 
-const addLessonPage = () => {
+const AddLessonPage = () => {
   return (
     <form action={addLesson}>
       <input type="text" name="lesson" />
-      <button type="submit">Отправить</button>
     </form>
   );
 };
 
-export default addLessonPage;
+export default AddLessonPage;

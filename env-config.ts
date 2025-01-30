@@ -1,4 +1,4 @@
-export const config = {
+export const envConfig = {
   API_TOKEN: process.env.API_TOKEN || '',
   ADMIN_ID: Number(process.env.ADMIN_ID) || 0,
   ADMIN_USERNAME: process.env.ADMIN_USERNAME || '',

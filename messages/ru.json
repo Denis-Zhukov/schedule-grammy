@@ -1,0 +1,28 @@
+{
+  "sign-in": {
+    "title": "Авторизация",
+    "loadingMessage": "Подтверждаем данные...",
+    "successMessage": "Вы успешно вошли",
+    "errorMessage": "Необходимо перейти по ссылке из бота",
+    "telegramButtonText": "Перейти в Telegram",
+    "homeButtonText": "На главную страницу"
+  },
+  "error-page": {
+    "title": "Ошибка",
+    "credentialsSignin": "Неверный токен. Попробуйте снова.",
+    "invalidToken": "Неверный токен. Попробуйте снова.",
+    "noUser": "Неверный токен. Попробуйте снова.",
+    "notTeacher": "Вы не учитель.",
+    "unexpectedError": "Произошла неизвестная ошибка.",
+    "default": "Произошла неизвестная ошибка.",
+    "telegramButtonText": "Перейти в Telegram"
+  },
+  "404": {
+    "title": "404",
+    "message": "Страница не найдена",
+    "buttonText": "Вернуться на главную"
+  },
+  "header": {
+    "switchTo": "Switch to"
+  }
+}

@@ -4,18 +4,22 @@ import { useSearchParams } from 'next/navigation';
 import { signIn, useSession } from 'next-auth/react';
 import { useEffect, useState, Suspense } from 'react';
 import styles from './style.module.css';
-import { config } from '@/config';
+import { envConfig } from '@/env-config';
 import Link from 'next/link';
+import { Loader } from '@/components/loader';
+import { useTranslations } from 'next-intl';
 
 const SignInPage = () => {
   return (
-    <Suspense fallback={<div>Loading...</div>}>
+    <Suspense fallback={<Loader />}>
       <SignInContent />
     </Suspense>
   );
 };
 
 const SignInContent = () => {
+  const t = useTranslations('sign-in');
+
   const searchParams = useSearchParams();
   const token = searchParams.get('token');
   const [loading, setLoading] = useState(true);
@@ -38,27 +42,26 @@ const SignInContent = () => {
   return (
     <div className={styles.container}>
       <div className={styles.card}>
-        <h1 className={styles.title}>Авторизация</h1>
+        <h1 className={styles.title}>{t('title')}</h1>
         <p className={styles.message}>
-          {(loading || status === 'loading') && 'Подтверждаем данные...'}
-          {status === 'authenticated' && 'Вы успешно вошли'}
-          {status === 'unauthenticated' &&
-            'Необходимо перейти по ссылке из бота'}
+          {loading && status === 'loading' && t('loadingMessage')}
+          {status === 'authenticated' && t('successMessage')}
+          {status === 'unauthenticated' && t('errorMessage')}
         </p>
         {status === 'unauthenticated' && (
           <Link
             className={styles.buttonLink}
-            href={`https://t.me/${config.USERNAME_BOT}`}
+            href={`https://t.me/${envConfig.USERNAME_BOT}`}
             rel="noreferrer nofollow noopener"
             target="_blank"
             passHref
           >
-            Перейти в Telegram
+            {t('telegramButtonText')}
           </Link>
         )}
         {status === 'authenticated' && (
           <Link className={styles.buttonLink} href="/">
-            На главную страницу
+            {t('homeButtonText')}
           </Link>
         )}
       </div>

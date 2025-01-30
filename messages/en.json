@@ -1,0 +1,28 @@
+{
+  "sign-in": {
+    "title": "Sign In",
+    "loadingMessage": "Confirming data...",
+    "successMessage": "You have successfully logged in",
+    "errorMessage": "You need to follow the link from the bot",
+    "telegramButtonText": "Go to Telegram",
+    "homeButtonText": "Go to the home page"
+  },
+  "error-page": {
+    "title": "Error",
+    "credentialsSignin": "Invalid token. Please try again.",
+    "invalidToken": "Invalid token. Please try again.",
+    "noUser": "Invalid token. Please try again.",
+    "notTeacher": "You are not a teacher.",
+    "unexpectedError": "An unexpected error occurred.",
+    "default": "An unexpected error occurred.",
+    "telegramButtonText": "Go to Telegram"
+  },
+  "404": {
+    "title": "404",
+    "message": "Page not found",
+    "buttonText": "Go to homepage"
+  },
+  "header": {
+    "switchTo": "Переключиться на"
+  }
+}

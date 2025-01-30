@@ -1,7 +1,7 @@
 import { GrammyError, HttpError } from 'grammy';
 
 import { logger } from './logger';
-import { config } from '@/config';
+import { envConfig } from '@/env-config';
 import { languages } from '@bot/constants/languages';
 import { CustomBot } from '@bot/types';
 
@@ -21,7 +21,7 @@ export const setErrorHandler = (bot: CustomBot) => {
     logger.error(`STACK: ${err.stack}:`);
     await err.ctx.reply(languages[lang].error);
     await bot.api.sendMessage(
-      config.ADMIN_ID,
+      envConfig.ADMIN_ID,
       'There was been an error, look what happened.',
     );
   });

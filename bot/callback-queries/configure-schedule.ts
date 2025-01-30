@@ -1,4 +1,4 @@
-import { config } from '@/config';
+import { envConfig } from '@/env-config';
 import { languages } from '@bot/constants/languages';
 import { CustomContext } from '@bot/types';
 import jwt from 'jsonwebtoken';
@@ -13,8 +13,8 @@ const configureSchedule = async (ctx: CustomContext) => {
     name: ctx.from?.first_name,
   };
 
-  const token = jwt.sign(payload, config.AUTH_SECRET, { expiresIn: '10m' });
-  const url = `${config.SERVER_URL}/auth/sign-in?token=${token}`;
+  const token = jwt.sign(payload, envConfig.AUTH_SECRET, { expiresIn: '10m' });
+  const url = `${envConfig.SERVER_URL}/auth/sign-in?token=${token}`;
 
   await ctx.editMessageReplyMarkup({
     reply_markup: {

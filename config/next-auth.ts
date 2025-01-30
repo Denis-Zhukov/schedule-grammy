@@ -3,7 +3,7 @@ import CredentialsProvider from 'next-auth/providers/credentials';
 import { pages } from '@/config/pages';
 import jwt, { JsonWebTokenError } from 'jsonwebtoken';
 import { JWT } from 'next-auth/jwt';
-import { config } from '@/config';
+import { envConfig } from '@/env-config';
 import { NoUserException } from '@/utils/exceptions/no-user-exception';
 import { prisma } from '@bot/utils/prisma-client';
 import { NotTeacherException } from '@/utils/exceptions/not-teacher';
@@ -13,7 +13,7 @@ import { UnexpectedErrorException } from '@/utils/exceptions/unexpected-error';
 export const authOptions: NextAuthOptions = {
   session: {
     strategy: 'jwt',
-    maxAge: config.TOKEN_LIFETIME,
+    maxAge: envConfig.TOKEN_LIFETIME,
   },
   providers: [
     CredentialsProvider({
@@ -26,7 +26,7 @@ export const authOptions: NextAuthOptions = {
         try {
           const user = jwt.verify(
             credentials!.token,
-            config.AUTH_SECRET,
+            envConfig.AUTH_SECRET,
           ) as JWT;
 
           if (!user) throw new NoUserException();

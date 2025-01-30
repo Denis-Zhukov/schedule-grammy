@@ -1,11 +1,11 @@
 import { InputFile } from 'grammy';
 
-import { config } from '@/config';
+import { envConfig } from '@/env-config';
 import { logFilePath } from '@bot/constants/logs';
 import { CustomBot } from '@bot/types';
 
 export async function sendLogs(bot: CustomBot) {
-  const chatId = config.ADMIN_ID;
+  const chatId = envConfig.ADMIN_ID;
 
   if (!chatId) {
     throw new Error('ADMIN_CHAT_ID is not defined in environment variables');
@@ -16,7 +16,6 @@ export async function sendLogs(bot: CustomBot) {
       caption: 'Daily logs',
     });
   } catch (error) {
-    // eslint-disable-next-line no-console
     console.error('Failed to send logs:', error);
   }
 }
