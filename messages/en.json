@@ -23,6 +23,29 @@
     "buttonText": "Go to homepage"
   },
   "header": {
-    "switchTo": "Переключиться на"
+    "add-lesson": "Add a lesson",
+    "switch-to": "Переключиться на"
+  },
+  "add-lesson-modal": {
+    "title": "Add Lesson",
+    "days-of-week": "Day of the Week",
+    "lesson": "Lesson",
+    "class": "Class",
+    "subclass": "Subclass",
+    "timeStart": "Start Time",
+    "timeEnd": "End Time",
+    "classroom": "Classroom",
+    "canteen": "Need to take to the canteen",
+    "lead": "Need to take out of the school",
+    "save": "Save"
+  },
+  "days-of-week": {
+    "MONDAY": "Monday",
+    "TUESDAY": "Tuesday",
+    "WEDNESDAY": "Wednesday",
+    "THURSDAY": "Thursday",
+    "FRIDAY": "Friday",
+    "SATURDAY": "Saturday",
+    "SUNDAY": "Sunday"
   }
 }

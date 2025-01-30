@@ -46,7 +46,7 @@ export const LanguageSwitcher = ({
 
   return (
     <button onClick={switchLanguage} className={styles.button}>
-      {t('switchTo')} {locales[nextLocale]}
+      {t('switch-to')} {locales[nextLocale]}
     </button>
   );
 };

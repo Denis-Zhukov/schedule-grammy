@@ -1,4 +1,4 @@
-import { format } from 'date-fns-tz';
+import { format, toZonedTime } from 'date-fns-tz';
 
 import { classes } from '@bot/constants/classes';
 import { timezone } from '@bot/constants/time';
@@ -53,8 +53,12 @@ export const en = {
     const classroomName = classroom?.replace('-', '\\-') ?? '';
     const teacher = `${surname} ${name[0]}.${patronymic?.[0]}.`;
 
-    const start = format(timeStart, 'HH:mm', { timeZone: timezone });
-    const end = format(timeEnd, 'HH:mm', { timeZone: timezone });
+    const start = format(toZonedTime(timeStart, timezone), 'HH:mm', {
+      timeZone: timezone,
+    });
+    const end = format(toZonedTime(timeEnd, timezone), 'HH:mm', {
+      timeZone: timezone,
+    });
 
     return `${classes[className] ?? className}*${subclass}* ${lesson} ${classroomName} \`${teacher}\` _ __${start}\\-${end}__ _${
       canteen ? '\n\t\t\t\t\t\t*Отвести в столовку* 🍽' : ''
@@ -115,8 +119,12 @@ export const ru: typeof en = {
     const classroomName = classroom?.replace('-', '\\-') ?? '';
     const teacher = `${surname} ${name[0]}.${patronymic?.[0]}.`;
 
-    const start = format(timeStart, 'HH:mm', { timeZone: timezone });
-    const end = format(timeEnd, 'HH:mm', { timeZone: timezone });
+    const start = format(toZonedTime(timeStart, timezone), 'HH:mm', {
+      timeZone: timezone,
+    });
+    const end = format(toZonedTime(timeEnd, timezone), 'HH:mm', {
+      timeZone: timezone,
+    });
 
     return `${classes[className] ?? className}*${subclass}* ${lesson} ${classroomName} \`${teacher}\` _ __${start}\\-${end}__ _${
       canteen ? '\n\t\t\t\t\t\t*Отвести в столовку* 🍽' : ''

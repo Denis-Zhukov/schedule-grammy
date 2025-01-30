@@ -1,9 +1,10 @@
-import { formatISO } from 'date-fns';
+import { toZonedTime } from 'date-fns-tz';
+import { timezone } from '@bot/constants/time';
 
 export const convertTimeToISO = (time: string) => {
-  const currentDate = new Date();
   const [hours, minutes] = time.split(':').map(Number);
 
-  currentDate.setHours(hours, minutes, 0, 0);
-  return formatISO(currentDate);
+  const localDate = new Date(1970, 0, 1, hours, minutes);
+
+  return toZonedTime(localDate, timezone);
 };

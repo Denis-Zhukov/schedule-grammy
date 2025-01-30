@@ -5,6 +5,8 @@ import './globals.css';
 import { AuthProvider } from './auth-provider';
 import { getLocale, getMessages } from 'next-intl/server';
 import { NextIntlClientProvider } from 'next-intl';
+import { AppRouterCacheProvider } from '@mui/material-nextjs/v15-appRouter';
+import { ReactQueryProvider } from '@/app/react-query-provider';
 
 const roboto = Roboto({
   variable: '--font-roboto',
@@ -40,7 +42,11 @@ export default async function RootLayout({
     <html lang={locale}>
       <body className={`${roboto.variable}`}>
         <NextIntlClientProvider messages={messages}>
-          <AuthProvider>{children}</AuthProvider>
+          <AppRouterCacheProvider>
+            <AuthProvider>
+              <ReactQueryProvider>{children}</ReactQueryProvider>
+            </AuthProvider>
+          </AppRouterCacheProvider>
         </NextIntlClientProvider>
       </body>
     </html>

@@ -23,6 +23,29 @@
     "buttonText": "Вернуться на главную"
   },
   "header": {
-    "switchTo": "Switch to"
+    "add-lesson": "Добавить урок",
+    "switch-to": "Switch to"
+  },
+  "add-lesson-modal": {
+    "title": "Добавить урок",
+    "days-of-week": "День недели",
+    "lesson": "Урок",
+    "class": "Класс",
+    "subclass": "Подкласс",
+    "timeStart": "Время начала",
+    "timeEnd": "Время окончания",
+    "classroom": "Кабинет",
+    "canteen": "Необходимо отвести в столовую",
+    "lead": "Необходимо вывести из школы",
+    "save": "Сохранить"
+  },
+  "days-of-week": {
+    "MONDAY": "Понедельник",
+    "TUESDAY": "Вторник",
+    "WEDNESDAY": "Среда",
+    "THURSDAY": "Четверг",
+    "FRIDAY": "Пятница",
+    "SATURDAY": "Суббота",
+    "SUNDAY": "Воскресенье"
   }
 }

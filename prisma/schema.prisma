@@ -40,7 +40,7 @@ model Teacher {
 
   followedUsers User[] @relation(name: "FollowingUserTeacher")
 
-  Schedule Schedule[]
+  schedule Schedule[]
 
   @@map("teachers")
 }
@@ -62,8 +62,8 @@ model Schedule {
   lesson    String
   class     Int
   subclass  String
-  timeStart DateTime  @db.Time()
-  timeEnd   DateTime  @db.Time()
+  timeStart DateTime  @db.Timetz()
+  timeEnd   DateTime  @db.Timetz()
   classroom String
 
   canteen Boolean @default(false)
