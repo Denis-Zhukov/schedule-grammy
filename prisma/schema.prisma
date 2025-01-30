@@ -62,8 +62,8 @@ model Schedule {
   lesson    String
   class     Int
   subclass  String
-  timeStart DateTime  @db.Timetz()
-  timeEnd   DateTime  @db.Timetz()
+  timeStart DateTime  @db.Time()
+  timeEnd   DateTime  @db.Time()
   classroom String
 
   canteen Boolean @default(false)
@@ -72,6 +72,6 @@ model Schedule {
   teacherId String  @map("teacher_id")
   teacher   Teacher @relation(fields: [teacherId], references: [id])
 
-  @@unique([teacherId, dayOfWeek, lesson, class, subclass, timeStart, timeEnd])
+  @@unique([dayOfWeek, timeStart, timeEnd])
   @@map("schedule")
 }

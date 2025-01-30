@@ -1,20 +1,16 @@
+'use client';
+
 import { Paper, Typography, Box } from '@mui/material';
-import { getMessages } from 'next-intl/server';
-import { getServerSession } from 'next-auth';
-import { authOptions } from '@/config/next-auth';
-import { prisma } from '@bot/utils/prisma-client';
+import { useGetSchedule } from '@/components/schedule/quries';
+import { useTranslations } from 'next-intl';
+import { Schedule as ScheduleData } from '@prisma/client';
+import { format, toZonedTime } from 'date-fns-tz';
 
-export const Schedule = async () => {
-  const user = await getServerSession(authOptions);
-  if (!user) return null;
+export const Schedule = () => {
+  const { data } = useGetSchedule();
+  const t = useTranslations('days-of-week');
 
-  const teacher = await prisma.teacher.findUnique({
-    where: { userId: user.user.id },
-    select: { schedule: true },
-  });
-  if (!teacher) return null;
-
-  const t = (await getMessages())['days-of-week'] as Record<string, string>;
+  if (!data) return null;
 
   const daysOfWeek = [
     'MONDAY',
@@ -25,14 +21,49 @@ export const Schedule = async () => {
     'SATURDAY',
   ];
 
+  const scheduleByDay = daysOfWeek.reduce(
+    (acc, day) => {
+      acc[day] = [];
+      return acc;
+    },
+    {} as Record<string, ScheduleData[]>,
+  );
+
+  data.forEach((lesson) => {
+    const day = lesson.dayOfWeek;
+    scheduleByDay[day].push(lesson);
+  });
+
   return (
-    <Box display="grid" gridTemplateColumns="repeat(6, 1fr)" gap={2}>
+    <Box display="grid" gridTemplateColumns="repeat(6, 1fr)">
       {daysOfWeek.map((day) => (
-        <Paper elevation={3} key={day} style={{ height: '300px' }}>
+        <Paper elevation={3} key={day}>
           <Typography variant="h6" align="center">
-            {t[day]}
+            {t(day)}
           </Typography>
-          {/* Здесь будут добавляться события */}
+          <Box padding={2}>
+            {scheduleByDay[day]?.map((lesson, index) => (
+              <Box key={index} mb={2}>
+                <Typography variant="body1">
+                  <strong>Lesson:</strong> {lesson.lesson}
+                </Typography>
+                <Typography variant="body1">
+                  <strong>Class:</strong> {lesson.class}
+                </Typography>
+                <Typography variant="body1">
+                  <strong>Subclass:</strong> {lesson.subclass}
+                </Typography>
+                <Typography variant="body1">
+                  <strong>Start Time:</strong>{' '}
+                  {format(toZonedTime(lesson.timeStart, 'UTC'), 'HH:mm')}
+                </Typography>
+                <Typography variant="body1">
+                  <strong>End Time:</strong>{' '}
+                  {format(toZonedTime(lesson.timeEnd, 'UTC'), 'HH:mm')}
+                </Typography>
+              </Box>
+            ))}
+          </Box>
         </Paper>
       ))}
     </Box>

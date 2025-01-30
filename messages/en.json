@@ -37,7 +37,13 @@
     "classroom": "Classroom",
     "canteen": "Need to take to the canteen",
     "lead": "Need to take out of the school",
-    "save": "Save"
+    "save": "Save",
+    "errors": {
+      "P2002": "There is already a lesson for this time",
+      "TIME_SLOT_OCCUPIED": "In this period of time there are other lessons",
+      "TIME_ERROR": "The time is incorrectly indicated",
+      "unexpected": "Unexpected error"
+    }
   },
   "days-of-week": {
     "MONDAY": "Monday",

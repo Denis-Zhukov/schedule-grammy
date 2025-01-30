@@ -54,14 +54,11 @@ export const AddLessonModal = ({ open, handleClose }: AddLessonModalProps) => {
     mode: 'all',
   });
 
-  const { mutate, isSuccess, error } = useAddLesson();
+  const { mutate } = useAddLesson();
 
-  const onSubmit = handleSubmit((val) => {
-    mutate(val);
+  const onSubmit = handleSubmit(async (fields) => {
+    mutate(fields);
   });
-
-  if (isSuccess) console.log('success');
-  if (error) console.log(error);
 
   return (
     <Modal open={open} onClose={handleClose}>
@@ -96,7 +93,6 @@ export const AddLessonModal = ({ open, handleClose }: AddLessonModalProps) => {
                   value={value}
                   onChange={onChange}
                   label={t('add-lesson-modal.days-of-week')}
-                  required
                   error={!!errors.dayOfWeek}
                 >
                   {DAYS_OF_WEEK.map((day) => (
@@ -116,7 +112,6 @@ export const AddLessonModal = ({ open, handleClose }: AddLessonModalProps) => {
                   {...params}
                   {...register('lesson')}
                   label={t('add-lesson-modal.lesson')}
-                  required
                   error={!!errors.lesson}
                 />
               )}
@@ -133,7 +128,6 @@ export const AddLessonModal = ({ open, handleClose }: AddLessonModalProps) => {
                   {...params}
                   {...register('class')}
                   label={t('add-lesson-modal.class')}
-                  required
                   error={!!errors.class}
                 />
               )}
@@ -148,7 +142,6 @@ export const AddLessonModal = ({ open, handleClose }: AddLessonModalProps) => {
                   {...params}
                   {...register('subclass')}
                   label={t('add-lesson-modal.subclass')}
-                  required
                   error={!!errors.subclass}
                 />
               )}
@@ -162,7 +155,6 @@ export const AddLessonModal = ({ open, handleClose }: AddLessonModalProps) => {
                 <TimeField
                   label={t('add-lesson-modal.timeStart')}
                   format="HH:mm"
-                  required
                   onBlur={onBlur}
                   onChange={(date) => {
                     if (!isDate(date)) return;
@@ -184,7 +176,6 @@ export const AddLessonModal = ({ open, handleClose }: AddLessonModalProps) => {
                 <TimeField
                   label={t('add-lesson-modal.timeEnd')}
                   format="HH:mm"
-                  required
                   onBlur={onBlur}
                   onChange={(date) => {
                     if (!isDate(date)) return;
@@ -202,7 +193,7 @@ export const AddLessonModal = ({ open, handleClose }: AddLessonModalProps) => {
             <TextField
               {...register('classroom')}
               label={t('add-lesson-modal.classroom')}
-              required
+              error={!!errors.classroom}
             />
 
             <Controller

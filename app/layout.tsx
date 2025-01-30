@@ -7,6 +7,7 @@ import { getLocale, getMessages } from 'next-intl/server';
 import { NextIntlClientProvider } from 'next-intl';
 import { AppRouterCacheProvider } from '@mui/material-nextjs/v15-appRouter';
 import { ReactQueryProvider } from '@/app/react-query-provider';
+import { ToastContainer } from 'react-toastify';
 
 const roboto = Roboto({
   variable: '--font-roboto',
@@ -48,6 +49,7 @@ export default async function RootLayout({
             </AuthProvider>
           </AppRouterCacheProvider>
         </NextIntlClientProvider>
+        <ToastContainer />
       </body>
     </html>
   );

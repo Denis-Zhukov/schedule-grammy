@@ -39,12 +39,12 @@ export const addLessonSchema = z.object({
   dayOfWeek: z.enum(DAYS_OF_WEEK),
   lesson: z.string().nonempty(),
   class: z.enum(CLASSES),
-  subclass: z.string(),
+  subclass: z.string().nonempty(),
 
-  timeStart: z.string(),
-  timeEnd: z.string(),
+  timeStart: z.string().nonempty(),
+  timeEnd: z.string().nonempty(),
 
-  classroom: z.string(),
+  classroom: z.string().nonempty(),
 
   canteen: z.boolean(),
   lead: z.boolean(),
