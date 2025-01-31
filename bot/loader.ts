@@ -31,6 +31,7 @@ export async function loadHears(bot: CustomBot) {
   const hears = [
     await import('@bot/hears/more'),
     await import('@bot/hears/weekday-schedule'),
+    await import('@bot/hears/today-schedule'),
   ];
 
   hears.forEach((command) => {

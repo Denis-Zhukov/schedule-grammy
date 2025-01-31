@@ -1,9 +1,12 @@
 import { differenceInMinutes } from 'date-fns';
 
-import { LanguageCode, languages } from '@bot/constants/languages';
-import { weekdayMapping } from '@bot/constants/weekday-mapping';
+import { languages } from '@bot/constants/languages';
+import { getWeekday } from '@bot/constants/weekday-mapping';
 import { CustomContext } from '@bot/types';
 import { prisma } from '@bot/utils/prisma-client';
+import { toZonedTime } from 'date-fns-tz';
+import { timezone } from '@bot/constants/time';
+import { DayOfWeek } from '@prisma/client';
 
 export const weekdaySchedule = async (ctx: CustomContext) => {
   const user = await prisma.user.findUnique({
@@ -12,13 +15,13 @@ export const weekdaySchedule = async (ctx: CustomContext) => {
 
   if (!user || !user.followingTeacherId) return;
 
-  const weekdayKey = ctx.message?.text as keyof typeof weekdayMapping;
-  const weekday = weekdayMapping[weekdayKey];
+  const today = toZonedTime(new Date(), timezone);
+  const dayOfWeek = getWeekday(today) as DayOfWeek;
 
   const lang = ctx.config.lang;
 
   const schedule = await prisma.schedule.findMany({
-    where: { teacherId: user.followingTeacherId, dayOfWeek: weekday },
+    where: { teacherId: user.followingTeacherId, dayOfWeek },
     select: {
       dayOfWeek: true,
       lesson: true,
@@ -94,10 +97,4 @@ export const weekdaySchedule = async (ctx: CustomContext) => {
   await ctx.reply(response, { parse_mode: 'MarkdownV2' });
 };
 
-const routes: string[] = [];
-
-Object.keys(languages).forEach((lang) => {
-  routes.push(...languages[lang as LanguageCode].keyboardMenuItems[0]);
-});
-
-export default [routes, weekdaySchedule];
+export default [['Today', 'Сегодня'], weekdaySchedule];
