@@ -19,3 +19,22 @@ export const getSchedule = async () => {
     orderBy: { timeStart: 'asc' },
   });
 };
+
+export const deleteSchedule = async (scheduleId: string) => {
+  const user = await getServerSession(authOptions);
+  if (!user) return { isError: true };
+
+  const teacher = await prisma.teacher.findUnique({
+    where: { userId: user.user.id },
+    select: { id: true },
+  });
+  if (!teacher) return { isError: true };
+
+  await prisma.schedule.deleteMany({
+    where: {
+      id: scheduleId,
+      teacherId: teacher.id,
+    },
+  });
+  return { isSuccess: true };
+};

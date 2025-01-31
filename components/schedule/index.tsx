@@ -1,25 +1,30 @@
 'use client';
 
 import { Paper, Typography, Box } from '@mui/material';
-import { useGetSchedule } from '@/components/schedule/quries';
+import { useDeleteLesson, useGetSchedule } from '@/components/schedule/quries';
 import { useTranslations } from 'next-intl';
 import { Schedule as ScheduleData } from '@prisma/client';
-import { format, toZonedTime } from 'date-fns-tz';
+import { Lesson } from '@/components/lesson';
+
+const daysOfWeek = [
+  'MONDAY',
+  'TUESDAY',
+  'WEDNESDAY',
+  'THURSDAY',
+  'FRIDAY',
+  'SATURDAY',
+];
 
 export const Schedule = () => {
-  const { data } = useGetSchedule();
   const t = useTranslations('days-of-week');
+  const { data } = useGetSchedule();
+  const { mutate: deleteLesson } = useDeleteLesson();
 
   if (!data) return null;
 
-  const daysOfWeek = [
-    'MONDAY',
-    'TUESDAY',
-    'WEDNESDAY',
-    'THURSDAY',
-    'FRIDAY',
-    'SATURDAY',
-  ];
+  const onDelete = (scheduleId: string) => () => {
+    deleteLesson(scheduleId);
+  };
 
   const scheduleByDay = daysOfWeek.reduce(
     (acc, day) => {
@@ -42,27 +47,27 @@ export const Schedule = () => {
             {t(day)}
           </Typography>
           <Box padding={2}>
-            {scheduleByDay[day]?.map((lesson, index) => (
-              <Box key={index} mb={2}>
-                <Typography variant="body1">
-                  <strong>Lesson:</strong> {lesson.lesson}
-                </Typography>
-                <Typography variant="body1">
-                  <strong>Class:</strong> {lesson.class}
-                </Typography>
-                <Typography variant="body1">
-                  <strong>Subclass:</strong> {lesson.subclass}
-                </Typography>
-                <Typography variant="body1">
-                  <strong>Start Time:</strong>{' '}
-                  {format(toZonedTime(lesson.timeStart, 'UTC'), 'HH:mm')}
-                </Typography>
-                <Typography variant="body1">
-                  <strong>End Time:</strong>{' '}
-                  {format(toZonedTime(lesson.timeEnd, 'UTC'), 'HH:mm')}
-                </Typography>
-              </Box>
-            ))}
+            {scheduleByDay[day]?.map(
+              ({
+                id,
+                lesson,
+                class: className,
+                subclass,
+                timeStart,
+                timeEnd,
+              }) => (
+                <Lesson
+                  onDelete={onDelete(id)}
+                  onEdit={() => {}}
+                  key={id}
+                  lesson={lesson}
+                  className={className}
+                  subclass={subclass}
+                  timeStart={timeStart}
+                  timeEnd={timeEnd}
+                />
+              ),
+            )}
           </Box>
         </Paper>
       ))}
