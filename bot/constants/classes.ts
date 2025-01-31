@@ -10,5 +10,5 @@ export const classes: Record<number, string> = {
   8: '8️⃣',
   9: '9️⃣',
   10: '🔟',
-  11: ' *11*',
+  11: '*11* ',
 };
