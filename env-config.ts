@@ -7,5 +7,5 @@ export const envConfig = {
   SERVER_URL: process.env.SERVER_URL || '',
   NEXTAUTH_URL: process.env.NEXTAUTH_URL || '',
   AUTH_SECRET: process.env.AUTH_SECRET || '',
-  TOKEN_LIFETIME: Number(process.env.TOKEN_LIFETIME) || 0,
+  TOKEN_LIFETIME: Number(process.env.TOKEN_LIFETIME) || 7200,
 } as const;

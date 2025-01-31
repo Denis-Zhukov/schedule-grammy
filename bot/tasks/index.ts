@@ -11,7 +11,7 @@ export function registerCronTasks(bot: CustomBot) {
     await clearLogs();
   });
 
-  schedule('* * * * *', async () => {
-    await canteenOrLeaveNotification();
+  schedule('*/5 * * * *', async () => {
+    await canteenOrLeaveNotification(bot);
   });
 }

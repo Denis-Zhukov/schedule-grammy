@@ -14,6 +14,7 @@ export const authOptions: NextAuthOptions = {
   session: {
     strategy: 'jwt',
     maxAge: envConfig.TOKEN_LIFETIME,
+    updateAge: envConfig.TOKEN_LIFETIME * 10,
   },
   providers: [
     CredentialsProvider({
