@@ -4,7 +4,7 @@ import { CustomBot } from '@bot/types';
 export const setMyCommands = async (bot: CustomBot) => {
   const commandKeys = [
     'b',
-    'reset',
+    'chooseTeacher',
     'adminSchedule',
     'callSchedule',
     'contacts',

@@ -7,7 +7,7 @@ import { escapeMarkdownV2 } from '@bot/utils/escape-markdown';
 export const en = {
   myCommands: {
     b: 'Buttons disappeared',
-    reset: 'Reset settings',
+    chooseTeacher: 'Choose a teacher',
     adminSchedule: 'Duty administrator',
     callSchedule: 'Call schedule',
     contacts: 'Contacts',
@@ -18,7 +18,7 @@ export const en = {
   ],
   user: 'User',
   greetings: (name: string) =>
-    `Hello, *${escapeMarkdownV2(name)}* 🤗\nThis bot is designed to help you with the schedule at school SSH-27`,
+    `Hello, *${escapeMarkdownV2(name)}* 🤗\nThis bot is designed to help you with the schedule at school SSH\\-27`,
   menuSet: 'Buttons have been set',
   moreInlineKeyboard: {
     imTeacher: "I'm a teacher",
@@ -41,7 +41,7 @@ export const en = {
   youFollow: (surname: string, name: string, patronymic: string) =>
     `You follow ${surname} ${name} ${patronymic}`,
   youUnfollow: 'You do not follow anyone teacher',
-  noAccount: 'Your account is not found',
+  noAccount: 'Your account is not found. Write a command: /start',
   youFollowNow: (surname: string, name: string, patronymic: string) =>
     escapeMarkdownV2(`You have followed ${surname} ${name} ${patronymic} now`),
   youAreTeacher: (surname: string, name: string, patronymic: string) =>
@@ -71,7 +71,7 @@ export const en = {
   openControlPanel: 'Open control panel',
   holiday: "Today's classes are CANCELLED! 🥳",
   chooseTeacher: 'Choose a teacher',
-  now: 'Now:',
+  now: 'Now',
   teacherNotChoose:
     'You have not selected a teacher\nYou must select a teacher first\nClick the "More" button and choose a teacher',
   noLessonsNow: (hours: number, minutes: number) =>
@@ -83,7 +83,7 @@ export const en = {
 export const ru: typeof en = {
   myCommands: {
     b: 'Пропали кнопки',
-    reset: 'Сбросить настройки',
+    chooseTeacher: 'Выбрать учителя',
     adminSchedule: 'Дежурный администратор',
     callSchedule: 'Расписание звонков',
     contacts: 'Контакты',
@@ -119,7 +119,7 @@ export const ru: typeof en = {
   youFollow: (surname: string, name: string, patronymic: string) =>
     `Вы следите за ${surname} ${name} ${patronymic}`,
   youUnfollow: 'Вы не следите ни за одним учителем',
-  noAccount: 'Ваш аккаунт не найден',
+  noAccount: 'Ваш аккаунт не найден. Напишите команду: /start',
   youAreTeacher: (surname: string, name: string, patronymic: string) =>
     `Вы учитель - ${surname} ${name} ${patronymic}`,
   lesson: ({

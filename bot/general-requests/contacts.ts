@@ -6,5 +6,4 @@ export const contacts = async (ctx: CustomContext) => {
   const lang = ctx.config.lang;
 
   await ctx.reply(languages[lang].contacts(envConfig.ADMIN_USERNAME));
-  await ctx.answerCallbackQuery();
 };

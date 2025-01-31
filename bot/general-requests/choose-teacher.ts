@@ -14,5 +14,4 @@ export const chooseTeacher = async (ctx: CustomContext) => {
   await ctx.reply(languages[lang].chooseTeacher, {
     reply_markup: inlineKeyboard,
   });
-  await ctx.answerCallbackQuery();
 };
