@@ -18,7 +18,7 @@ export const en = {
   user: 'User',
   greetings: (name: string) =>
     `Hello, *${name}* 🤗\nThis bot is designed to help you with the schedule at school SSH\\-27`,
-  menuSet: 'Buttons are set',
+  menuSet: 'Buttons have been set',
   moreInlineKeyboard: {
     imTeacher: "I'm a teacher",
     adminSchedule: 'Duty administrator',

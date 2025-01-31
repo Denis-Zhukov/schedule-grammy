@@ -16,7 +16,7 @@ export const moreInlineKeyboard = ({
   const inlineKeyboardItems = [
     [labels.adminSchedule, 'admin-schedule'],
     [labels.callSchedule, 'call-schedule'],
-    [labels.chooseTeacher, 'reset-settings'],
+    [labels.chooseTeacher, 'choose-teacher'],
     [labels.contacts, 'contacts'],
   ];
 
