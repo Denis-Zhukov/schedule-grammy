@@ -10,15 +10,17 @@ import { DayOfWeek } from '@prisma/client';
 
 export const weekdaySchedule = async (ctx: CustomContext) => {
   const user = await prisma.user.findUnique({
-    where: { id: ctx.chat?.id ?? 0 },
+    where: { id: ctx.chat!.id },
   });
 
-  if (!user || !user.followingTeacherId) return;
+  const lang = ctx.config.lang;
+
+  if (!user || !user.followingTeacherId)
+    return ctx.reply(languages[lang].teacherNotChoose);
 
   const today = toZonedTime(new Date(), timezone);
-  const dayOfWeek = getWeekday(today) as DayOfWeek;
 
-  const lang = ctx.config.lang;
+  const dayOfWeek = getWeekday(today) as DayOfWeek;
 
   const schedule = await prisma.schedule.findMany({
     where: { teacherId: user.followingTeacherId, dayOfWeek },

@@ -6,15 +6,17 @@ import { toZonedTime } from 'date-fns-tz';
 import { timezone } from '@bot/constants/time';
 import { DayOfWeek } from '@prisma/client';
 import { getDifferenceInHoursAndMinutes } from '@bot/utils/time/get-difference-in-hours-and-minutes';
+import { escapeMarkdownV2 } from '@bot/utils/escape-markdown';
 
 export const weekdaySchedule = async (ctx: CustomContext) => {
   const user = await prisma.user.findUnique({
-    where: { id: ctx.chat?.id ?? 0 },
+    where: { id: ctx.chat!.id },
   });
 
-  if (!user || !user.followingTeacherId) return;
-
   const lang = ctx.config.lang;
+
+  if (!user || !user.followingTeacherId)
+    return ctx.reply(languages[lang].teacherNotChoose);
 
   const now = toZonedTime(new Date(), timezone);
   const dayOfWeek = getWeekday(now) as DayOfWeek;
@@ -56,7 +58,10 @@ export const weekdaySchedule = async (ctx: CustomContext) => {
     },
   });
 
-  if (!data) return ctx.reply('Отдыхаем на сегодня');
+  if (!data)
+    return ctx.reply(escapeMarkdownV2(languages[lang].chill), {
+      parse_mode: 'MarkdownV2',
+    });
 
   const {
     lesson,
@@ -75,11 +80,11 @@ export const weekdaySchedule = async (ctx: CustomContext) => {
   let toLesson = '';
   if (timeStart > nowUTC || nowUTC > timeEnd) {
     const { hours, minutes } = getDifferenceInHoursAndMinutes(now, timeStart);
-    toLesson = `\n\nСейчас урока нет\\. До следущего урока\\: ${hours > 0 ? `${hours} ч\\. ` : ''} ${minutes > 0 ? `${minutes} мин\\.` : ''}`;
+    toLesson = languages[lang].noLessonsNow(hours, minutes);
   }
 
   await ctx.reply(
-    `Сейчас\\:${toLesson}\n\n${languages[lang].lesson({
+    `${languages[lang].now}\\:${toLesson}\n\n${languages[lang].lesson({
       lesson,
       className,
       subclass,

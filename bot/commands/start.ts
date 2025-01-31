@@ -1,6 +1,7 @@
-import { languages } from '../constants/languages';
-import { CustomContext } from '../types';
+import { languages } from '@bot/constants/languages';
+import { CustomContext } from '@bot/types';
 import { prisma } from '@bot/utils/prisma-client';
+import { generateKeyboardMenu } from '@bot/utils/set-keyboard-menu';
 
 const start = async (ctx: CustomContext) => {
   const lang = ctx.config.lang;
@@ -25,6 +26,7 @@ const start = async (ctx: CustomContext) => {
 
   await ctx.reply(languages[lang].greetings(name), {
     parse_mode: 'MarkdownV2',
+    reply_markup: generateKeyboardMenu(lang),
   });
 };
 

@@ -10,12 +10,13 @@ export const weekdaySchedule = async (ctx: CustomContext) => {
     where: { id: ctx.chat?.id ?? 0 },
   });
 
-  if (!user || !user.followingTeacherId) return;
+  const lang = ctx.config.lang;
+
+  if (!user || !user.followingTeacherId)
+    return ctx.reply(languages[lang].teacherNotChoose);
 
   const weekdayKey = ctx.message?.text as keyof typeof weekdayMapping;
   const weekday = weekdayMapping[weekdayKey];
-
-  const lang = ctx.config.lang;
 
   const schedule = await prisma.schedule.findMany({
     where: { teacherId: user.followingTeacherId, dayOfWeek: weekday },

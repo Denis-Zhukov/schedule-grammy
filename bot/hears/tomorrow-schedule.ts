@@ -14,13 +14,14 @@ export const tomorrowSchedule = async (ctx: CustomContext) => {
     where: { id: ctx.chat?.id ?? 0 },
   });
 
-  if (!user || !user.followingTeacherId) return;
+  const lang = ctx.config.lang;
+
+  if (!user || !user.followingTeacherId)
+    return ctx.reply(languages[lang].teacherNotChoose);
 
   const today = toZonedTime(new Date(), timezone);
 
   const dayOfWeek = getWeekday(addDays(today, 1)) as DayOfWeek;
-
-  const lang = ctx.config.lang;
 
   const schedule = await prisma.schedule.findMany({
     where: { teacherId: user.followingTeacherId, dayOfWeek },
