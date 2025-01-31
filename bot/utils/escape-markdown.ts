@@ -1,2 +1,3 @@
-export const escapeMarkdownV2 = (text: string) =>
-  text.replace(/[_*\[\]()~`>#+\-=|{}.!]/g, '\\$&');
+export const escapeMarkdownV2 = (text: string): string => {
+  return text.replace(/[_*[\]()~`>#+\-=|{}.!]/g, (match) => `\\${match}`);
+};

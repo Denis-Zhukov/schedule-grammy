@@ -57,13 +57,12 @@ export const en = {
     canteen,
     lead,
   }: weekOfDay) => {
-    const classroomName = classroom?.replace('-', '\\-') ?? '';
     const teacher = `${surname} ${name[0]}.${patronymic?.[0]}.`;
 
     const start = format(timeStart, 'HH:mm');
     const end = format(timeEnd, 'HH:mm');
 
-    return `${classes[className] ?? className}*${escapeMarkdownV2(subclass)}* ${escapeMarkdownV2(lesson)} ${escapeMarkdownV2(classroomName)} \`${escapeMarkdownV2(teacher)}\` _ __${start}\\-${end}__ _${
+    return `${classes[className] ?? className}*${escapeMarkdownV2(subclass)}* ${escapeMarkdownV2(lesson)} ${escapeMarkdownV2(classroom)} \`${escapeMarkdownV2(teacher)}\` _ __${start}\\-${end}__ _${
       canteen ? '\n\t\t\t\t\t\t*Take you to the canteen* 🍽' : ''
     }${lead ? '\n\t\t\t\t\t\t*To lead from school* 🏃‍➡️' : ''}`;
   },
@@ -133,13 +132,12 @@ export const ru: typeof en = {
     canteen,
     lead,
   }: weekOfDay) => {
-    const classroomName = classroom?.replace('-', '\\-') ?? '';
     const teacher = `${surname} ${name[0]}.${patronymic?.[0]}.`;
 
     const start = format(timeStart, 'HH:mm');
     const end = format(timeEnd, 'HH:mm');
 
-    return `${classes[className] ?? className}*${escapeMarkdownV2(subclass)}* ${escapeMarkdownV2(lesson)} ${escapeMarkdownV2(classroomName)} \`${escapeMarkdownV2(teacher)}\` _ __${start}\\-${end}__ _${
+    return `${classes[className] ?? className}*${escapeMarkdownV2(subclass)}* ${escapeMarkdownV2(lesson)} ${escapeMarkdownV2(classroom)} \`${escapeMarkdownV2(teacher)}\` _ __${start}\\-${end}__ _${
       canteen ? '\n\t\t\t\t\t\t*Отвести в столовку* 🍽' : ''
     }${lead ? '\n\t\t\t\t\t\t*Вывести из школы* 🏃‍➡️' : ''}`;
   },
