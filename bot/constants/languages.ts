@@ -23,7 +23,7 @@ export const en = {
     imTeacher: "I'm a teacher",
     adminSchedule: 'Duty administrator',
     callSchedule: 'Call schedule',
-    reset: 'Reset settings',
+    chooseTeacher: 'Choose teacher',
     contacts: 'Contacts',
     schedule: 'Configure schedule',
   },
@@ -36,8 +36,15 @@ export const en = {
     `${surname} ${name} is no longer a teacher`,
   isNotTeacher: (userId: string) => `${userId} is not a teacher`,
   notFound: 'User is not found',
-  success: 'Success',
   gap: '🙌 *Gap*',
+  youFollow: (surname: string, name: string, patronymic: string) =>
+    `You follow ${surname} ${name} ${patronymic}`,
+  youUnfollow: 'You do not follow anyone teacher',
+  noAccount: 'Your account is not found',
+  youFollowNow: (surname: string, name: string, patronymic: string) =>
+    `You have followed ${surname} ${name} ${patronymic} now`,
+  youAreTeacher: (surname: string, name: string, patronymic: string) =>
+    `You are a teacher - ${surname} ${name} ${patronymic}`,
   lesson: ({
     lesson,
     classroom,
@@ -62,6 +69,7 @@ export const en = {
   back: 'Back',
   openControlPanel: 'Open control panel',
   holiday: "Today's classes are CANCELLED! 🥳",
+  chooseTeacher: 'Choose a teacher',
   error: 'Oops, something went wrong 😬',
 };
 
@@ -85,7 +93,7 @@ export const ru: typeof en = {
     imTeacher: 'Я учитель',
     adminSchedule: 'Дежурный администратор',
     callSchedule: 'Расписание звонков',
-    reset: 'Сбросить настройки',
+    chooseTeacher: 'Выбрать учителя',
     contacts: 'Контакты',
     schedule: 'Управление расписанием',
   },
@@ -98,8 +106,15 @@ export const ru: typeof en = {
     `${surname} ${name} теперь не учитель`,
   isNotTeacher: (userId: string) => `${userId} не является учитель`,
   notFound: 'Пользователь не найден',
-  success: 'Успешно',
+  youFollowNow: (surname: string, name: string, patronymic: string) =>
+    `Вы теперь следите за ${surname} ${name} ${patronymic}`,
   gap: '🙌 *Форточка*',
+  youFollow: (surname: string, name: string, patronymic: string) =>
+    `Вы следите за ${surname} ${name} ${patronymic}`,
+  youUnfollow: 'Вы не следите ни за одним учителем',
+  noAccount: 'Ваш аккаунт не найден',
+  youAreTeacher: (surname: string, name: string, patronymic: string) =>
+    `Вы учитель - ${surname} ${name} ${patronymic}`,
   lesson: ({
     lesson,
     classroom,
@@ -124,6 +139,7 @@ export const ru: typeof en = {
   back: 'Назад',
   openControlPanel: 'Открыть панель управления',
   holiday: 'Сегодня уроков НЕТ! 🥳',
+  chooseTeacher: 'Выберите учителя',
   error: 'Упс, что-то пошло не так 😬',
 } as const;
 

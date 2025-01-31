@@ -8,14 +8,25 @@ const setFollowingTeacher = async (ctx: CustomContext) => {
 
   const [, teacherId] = (ctx.callbackQuery?.data ?? '').split(' ');
 
-  await prisma.user.update({
+  const user = await prisma.user.update({
     where: { id: userId },
     data: {
       followingTeacherId: teacherId,
     },
+    select: {
+      followingTeacher: {
+        select: { surname: true, name: true, patronymic: true },
+      },
+    },
   });
 
-  await ctx.reply(languages[lang].success);
+  if (!user || !user.followingTeacher) return ctx.reply(languages[lang].error);
+
+  const { surname, name, patronymic } = user.followingTeacher;
+
+  await ctx.reply(
+    languages[lang].youFollowNow(surname, name, patronymic ?? ''),
+  );
   await ctx.answerCallbackQuery();
 };
 

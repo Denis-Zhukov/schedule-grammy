@@ -7,7 +7,7 @@ type GenerateMoreInlineKeyboardParams = {
   isTeacher: boolean;
 };
 
-export const generateMoreInlineKeyboard = ({
+export const moreInlineKeyboard = ({
   lang,
   isTeacher,
 }: GenerateMoreInlineKeyboardParams) => {
@@ -16,7 +16,7 @@ export const generateMoreInlineKeyboard = ({
   const inlineKeyboardItems = [
     [labels.adminSchedule, 'admin-schedule'],
     [labels.callSchedule, 'call-schedule'],
-    [labels.reset, 'reset-settings'],
+    [labels.chooseTeacher, 'reset-settings'],
     [labels.contacts, 'contacts'],
   ];
 

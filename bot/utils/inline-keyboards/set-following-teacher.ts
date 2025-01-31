@@ -5,7 +5,7 @@ type GenerateMoreInlineKeyboardParams = {
   teachers: Teacher[];
 };
 
-export const generateSetFollowingTeacherInlineKeyboard = ({
+export const setFollowingTeacherInlineKeyboard = ({
   teachers,
 }: GenerateMoreInlineKeyboardParams) => {
   const inlineKeyboardItems = teachers.map(

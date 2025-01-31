@@ -9,10 +9,10 @@ import { CustomBot, CustomContext } from '@bot/types';
 export async function loadCommands(bot: CustomBot) {
   const commands = [
     await import('@bot/commands/start'),
-    await import('@bot/commands/my-commands/contacts'),
     await import('@bot/commands/my-commands/set-buttons'),
-    await import('@bot/commands/my-commands/admin-schedule'),
-    await import('@bot/commands/my-commands/call-schedule'),
+    await import('@bot/commands/my-commands/admin-schedule-image'),
+    await import('@bot/commands/my-commands/call-schedule-image'),
+    await import('@bot/commands/my-commands/contacts'),
     await import('@bot/commands/logs'),
     await import('@bot/commands/set-teacher'),
     await import('@bot/commands/remove-teacher'),
@@ -45,12 +45,11 @@ export async function loadHears(bot: CustomBot) {
 export async function loadCallbackQueries(bot: CustomBot) {
   const callbackQueries = [
     await import('@bot/callback-queries/set-following-teacher'),
-    await import('@bot/callback-queries/more/more'),
     await import('@bot/callback-queries/more/contacts'),
-    await import('@bot/callback-queries/more/call-schedule'),
-    await import('@bot/callback-queries/more/admin-schedule'),
+    await import('@bot/callback-queries/more/call-schedule-image'),
+    await import('@bot/callback-queries/more/admin-schedule-image'),
     await import('@bot/callback-queries/more/im-teacher'),
-    await import('@bot/callback-queries/more/reset-settings'),
+    await import('@bot/callback-queries/more/choose-teacher'),
     await import('@bot/callback-queries/configure-schedule'),
   ];
 

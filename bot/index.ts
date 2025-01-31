@@ -11,7 +11,7 @@ import { CustomContext } from '@bot/types';
 import { setErrorHandler } from '@bot/utils/set-error-handler';
 import { setMyCommands } from '@bot/utils/set-my-commands';
 
-const token = process.env.API_TOKEN ?? envConfig.API_TOKEN;
+const token = envConfig.API_TOKEN;
 
 if (!token)
   throw new Error('TELEGRAM_BOT_TOKEN environment variable not found.');
