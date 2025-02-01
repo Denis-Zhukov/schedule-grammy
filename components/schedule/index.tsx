@@ -162,7 +162,9 @@ export const Schedule = () => {
                   }) => (
                     <Lesson
                       onDelete={onDelete(id)}
-                      onEdit={() => {}}
+                      onEdit={() =>
+                        alert('Ещё не реализовано, будет добавлено позже')
+                      }
                       key={id}
                       lesson={lesson}
                       className={className}

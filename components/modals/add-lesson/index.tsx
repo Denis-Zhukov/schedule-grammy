@@ -13,7 +13,6 @@ import {
   Select,
   IconButton,
   Paper,
-  Divider,
 } from '@mui/material';
 import TimeField from 'react-simple-timefield';
 import {
@@ -109,13 +108,15 @@ export const AddLessonModal = ({ open, handleClose }: AddLessonModalProps) => {
         }}
       >
         <Paper
-          elevation={10}
+          elevation={5}
           sx={{
             position: 'relative',
-            p: 4,
+            p: 3,
             borderRadius: 4,
             width: 480,
-            maxWidth: '95%',
+            maxWidth: '100%',
+            maxHeight: '90vh',
+            overflowY: 'auto',
             bgcolor: 'background.default',
           }}
         >
@@ -139,11 +140,10 @@ export const AddLessonModal = ({ open, handleClose }: AddLessonModalProps) => {
           >
             {t('add-lesson-modal.title')}
           </Typography>
-          <Divider sx={{ mb: 2 }} />
           <Box
             component="form"
             onSubmit={onSubmit}
-            sx={{ display: 'flex', flexDirection: 'column', gap: 3 }}
+            sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}
           >
             <Controller
               control={control}
@@ -180,83 +180,87 @@ export const AddLessonModal = ({ open, handleClose }: AddLessonModalProps) => {
               )}
             />
 
-            <Controller
-              control={control}
-              name="class"
-              render={({ field: { value } }) => (
-                <Autocomplete
-                  value={value}
-                  options={CLASSES}
-                  onChange={(_, newValue) =>
-                    setValue('class', newValue! as (typeof CLASSES)[number])
-                  }
-                  renderInput={(params) => (
-                    <TextField
-                      {...params}
-                      label={t('add-lesson-modal.class')}
-                      error={!!errors.class}
-                      fullWidth
-                    />
-                  )}
-                  freeSolo
-                />
-              )}
-            />
+            <Box sx={{ display: 'flex', flexDirection: 'row', gap: 1 }}>
+              <Controller
+                control={control}
+                name="class"
+                render={({ field: { value } }) => (
+                  <Autocomplete
+                    sx={{ width: '25%' }}
+                    value={value}
+                    options={CLASSES}
+                    onChange={(_, newValue) =>
+                      setValue('class', newValue! as (typeof CLASSES)[number])
+                    }
+                    renderInput={(params) => (
+                      <TextField
+                        {...params}
+                        label={t('add-lesson-modal.class')}
+                        error={!!errors.class}
+                      />
+                    )}
+                    freeSolo
+                  />
+                )}
+              />
 
-            <Controller
-              control={control}
-              name="subclass"
-              render={({ field: { value } }) => (
-                <Autocomplete
-                  value={value}
-                  options={SUBCLASSES}
-                  onChange={(_, newValue) => setValue('subclass', newValue!)}
-                  renderInput={(params) => (
-                    <TextField
-                      {...params}
-                      label={t('add-lesson-modal.subclass')}
-                      error={!!errors.subclass}
-                      fullWidth
-                    />
-                  )}
-                  freeSolo
-                />
-              )}
-            />
+              <Controller
+                control={control}
+                name="subclass"
+                render={({ field: { value } }) => (
+                  <Autocomplete
+                    sx={{ width: '100%' }}
+                    value={value}
+                    options={SUBCLASSES}
+                    onChange={(_, newValue) => setValue('subclass', newValue!)}
+                    renderInput={(params) => (
+                      <TextField
+                        {...params}
+                        label={t('add-lesson-modal.subclass')}
+                        error={!!errors.subclass}
+                      />
+                    )}
+                    freeSolo
+                  />
+                )}
+              />
+            </Box>
 
-            <Controller
-              control={control}
-              name="timeStart"
-              render={({ field: { name, value } }) => (
-                <TimeField
-                  value={value}
-                  input={
-                    <TextField
-                      label={t('add-lesson-modal.timeStart')}
-                      fullWidth
-                    />
-                  }
-                  onChange={(_, value) => setValue(name, value)}
-                />
-              )}
-            />
+            <Box sx={{ display: 'flex', flexDirection: 'row', gap: 1 }}>
+              <Controller
+                control={control}
+                name="timeStart"
+                render={({ field: { name, value } }) => (
+                  <TimeField
+                    value={value}
+                    input={
+                      <TextField
+                        label={t('add-lesson-modal.timeStart')}
+                        fullWidth
+                      />
+                    }
+                    onChange={(_, value) => setValue(name, value)}
+                  />
+                )}
+              />
 
-            <Controller
-              control={control}
-              name="timeEnd"
-              render={({ field: { name, value } }) => (
-                <TimeField
-                  value={value}
-                  input={
-                    <TextField
-                      label={t('add-lesson-modal.timeEnd')}
-                      fullWidth
-                    />
-                  }
-                  onChange={(_, value) => setValue(name, value)}
-                />
-              )}
-            />
+              <Controller
+                control={control}
+                name="timeEnd"
+                render={({ field: { name, value } }) => (
+                  <TimeField
+                    value={value}
+                    input={
+                      <TextField
+                        label={t('add-lesson-modal.timeEnd')}
+                        fullWidth
+                      />
+                    }
+                    onChange={(_, value) => setValue(name, value)}
+                  />
+                )}
+              />
+            </Box>
 
             <TextField
               {...register('classroom')}
