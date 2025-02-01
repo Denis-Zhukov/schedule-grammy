@@ -54,5 +54,8 @@
     "FRIDAY": "Friday",
     "SATURDAY": "Saturday",
     "SUNDAY": "Sunday"
+  },
+  "schedule": {
+    "no-class": "No class"
   }
 }

@@ -44,7 +44,6 @@ export const authOptions: NextAuthOptions = {
             name: user.name,
           };
         } catch (e) {
-          console.log(e);
           if (e instanceof JsonWebTokenError) throw new InvalidTokenException();
           if (e instanceof NoUserException || e instanceof NotTeacherException)
             throw e;
