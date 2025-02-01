@@ -27,8 +27,10 @@ import {
 import { useTranslations } from 'next-intl';
 import { useForm, Controller } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useAddLesson } from '@/components/modals/add-lesson/quries';
 import CloseIcon from '@mui/icons-material/Close';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { addLesson } from '@/components/modals/add-lesson/server-action';
+import { toast } from 'react-toastify';
 
 export type AddLessonModalProps = {
   open: boolean;
@@ -37,24 +39,58 @@ export type AddLessonModalProps = {
 
 export const AddLessonModal = ({ open, handleClose }: AddLessonModalProps) => {
   const t = useTranslations();
+  const tErrors = useTranslations('add-lesson-modal.errors');
+
   const {
     register,
     setValue,
     control,
     handleSubmit,
+    reset,
     formState: { errors },
   } = useForm<AddLessonFields>({
     resolver: zodResolver(addLessonSchema),
     defaultValues: {
+      lesson: '',
+      class: '' as (typeof CLASSES)[number],
       dayOfWeek: 'MONDAY',
       subclass: '',
       canteen: false,
       lead: false,
+      timeStart: '00:00',
+      timeEnd: '00:00',
     },
     mode: 'all',
   });
 
-  const { mutate } = useAddLesson();
+  const queryClient = useQueryClient();
+
+  const { mutate } = useMutation({
+    mutationFn: addLesson,
+    onSuccess: (data) => {
+      if (!data) return;
+      if (data.isSuccess) {
+        toast('Урок добавлен', { type: 'success' });
+        queryClient.invalidateQueries({ queryKey: ['schedule'] });
+        reset((fields) => ({
+          ...fields,
+          class: '' as (typeof CLASSES)[number],
+          subclass: '',
+          canteen: false,
+          lead: false,
+          timeStart: '00:00',
+          timeEnd: '00:00',
+          classroom: '',
+        }));
+      }
+      if (data.isError && data.error) {
+        toast(tErrors(data.error), { type: 'error' });
+      } else if (data.isError) {
+        toast(tErrors('unexpected'), { type: 'error' });
+      }
+    },
+    mutationKey: ['schedule'],
+  });
 
   const onSubmit = handleSubmit(async (fields) => {
     mutate(fields);
@@ -123,53 +159,77 @@ export const AddLessonModal = ({ open, handleClose }: AddLessonModalProps) => {
               )}
             />
 
-            <Autocomplete
-              options={LESSONS}
-              onChange={(_, newValue) => setValue('lesson', newValue!)}
-              renderInput={(params) => (
-                <TextField
-                  {...params}
-                  label={t('add-lesson-modal.lesson')}
-                  error={!!errors.lesson}
-                  fullWidth
+            <Controller
+              control={control}
+              name="lesson"
+              render={({ field: { value } }) => (
+                <Autocomplete
+                  value={value}
+                  options={LESSONS}
+                  onChange={(_, newValue) => setValue('lesson', newValue!)}
+                  renderInput={(params) => (
+                    <TextField
+                      {...params}
+                      label={t('add-lesson-modal.lesson')}
+                      error={!!errors.lesson}
+                      fullWidth
+                    />
+                  )}
+                  freeSolo
                 />
               )}
-              freeSolo
             />
 
-            <Autocomplete
-              options={CLASSES}
-              onChange={(_, newValue) => setValue('class', newValue!)}
-              renderInput={(params) => (
-                <TextField
-                  {...params}
-                  label={t('add-lesson-modal.class')}
-                  error={!!errors.class}
-                  fullWidth
+            <Controller
+              control={control}
+              name="class"
+              render={({ field: { value } }) => (
+                <Autocomplete
+                  value={value}
+                  options={CLASSES}
+                  onChange={(_, newValue) =>
+                    setValue('class', newValue! as (typeof CLASSES)[number])
+                  }
+                  renderInput={(params) => (
+                    <TextField
+                      {...params}
+                      label={t('add-lesson-modal.class')}
+                      error={!!errors.class}
+                      fullWidth
+                    />
+                  )}
+                  freeSolo
                 />
               )}
-              freeSolo
             />
 
-            <Autocomplete
-              options={SUBCLASSES}
-              onChange={(_, newValue) => setValue('subclass', newValue!)}
-              renderInput={(params) => (
-                <TextField
-                  {...params}
-                  label={t('add-lesson-modal.subclass')}
-                  error={!!errors.subclass}
-                  fullWidth
+            <Controller
+              control={control}
+              name="subclass"
+              render={({ field: { value } }) => (
+                <Autocomplete
+                  value={value}
+                  options={SUBCLASSES}
+                  onChange={(_, newValue) => setValue('subclass', newValue!)}
+                  renderInput={(params) => (
+                    <TextField
+                      {...params}
+                      label={t('add-lesson-modal.subclass')}
+                      error={!!errors.subclass}
+                      fullWidth
+                    />
+                  )}
+                  freeSolo
                 />
               )}
-              freeSolo
             />
 
             <Controller
               control={control}
               name="timeStart"
-              render={({ field: { name } }) => (
+              render={({ field: { name, value } }) => (
                 <TimeField
+                  value={value}
                   input={
                     <TextField
                       label={t('add-lesson-modal.timeStart')}
@@ -184,8 +244,9 @@ export const AddLessonModal = ({ open, handleClose }: AddLessonModalProps) => {
             <Controller
               control={control}
               name="timeEnd"
-              render={({ field: { name } }) => (
+              render={({ field: { name, value } }) => (
                 <TimeField
+                  value={value}
                   input={
                     <TextField
                       label={t('add-lesson-modal.timeEnd')}
@@ -205,13 +266,30 @@ export const AddLessonModal = ({ open, handleClose }: AddLessonModalProps) => {
             />
 
             <Box>
-              <FormControlLabel
-                control={<Checkbox {...register('canteen')} />}
-                label={t('add-lesson-modal.canteen')}
+              <Controller
+                control={control}
+                name="canteen"
+                render={({ field: { name, value, onChange } }) => (
+                  <FormControlLabel
+                    checked={value}
+                    name={name}
+                    control={<Checkbox onChange={onChange} />}
+                    label={t('add-lesson-modal.canteen')}
+                  />
+                )}
               />
-              <FormControlLabel
-                control={<Checkbox {...register('lead')} />}
-                label={t('add-lesson-modal.lead')}
+
+              <Controller
+                control={control}
+                name="lead"
+                render={({ field: { name, value, onChange } }) => (
+                  <FormControlLabel
+                    checked={value}
+                    name={name}
+                    control={<Checkbox onChange={onChange} />}
+                    label={t('add-lesson-modal.lead')}
+                  />
+                )}
               />
             </Box>
 
