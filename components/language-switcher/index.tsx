@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
-import styles from './style.module.css';
+import { Button, Tooltip } from '@mui/material';
 import { useTranslations } from 'next-intl';
 
 export type LanguageSwitcherProps = {
@@ -45,8 +45,31 @@ export const LanguageSwitcher = ({
     localeKeys[(localeKeys.indexOf(locale) + 1) % localeKeys.length];
 
   return (
-    <button onClick={switchLanguage} className={styles.button}>
-      {t('switch-to')} {locales[nextLocale]}
-    </button>
+    <Tooltip title={`${t('switch-to')} ${locales[nextLocale]}`} arrow>
+      <Button
+        onClick={switchLanguage}
+        variant="outlined"
+        sx={{
+          color: '#fff',
+          fontWeight: 'bold',
+          padding: '6px 12px',
+          borderRadius: '8px',
+          fontSize: '0.875rem',
+          border: '1px solid rgba(255, 255, 255, 0.5)',
+          transition:
+            'background 0.3s ease, transform 0.2s ease, border 0.3s ease',
+          '&:hover': {
+            background: 'rgba(255, 255, 255, 0.2)',
+            transform: 'scale(1.05)',
+            borderColor: 'rgba(255, 255, 255, 0.7)',
+          },
+          '&:active': {
+            transform: 'scale(0.95)',
+          },
+        }}
+      >
+        {t('switch-to')} {locales[nextLocale]}
+      </Button>
+    </Tooltip>
   );
 };

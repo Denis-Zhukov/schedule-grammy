@@ -23,6 +23,7 @@
     "buttonText": "Go to homepage"
   },
   "header": {
+    "menu": "Menu",
     "add-lesson": "Add a lesson",
     "switch-to": "Переключиться на"
   },

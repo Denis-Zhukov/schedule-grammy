@@ -14,7 +14,6 @@ export const authOptions: NextAuthOptions = {
   session: {
     strategy: 'jwt',
     maxAge: envConfig.TOKEN_LIFETIME,
-    updateAge: envConfig.TOKEN_LIFETIME * 10,
   },
   providers: [
     CredentialsProvider({
@@ -45,6 +44,7 @@ export const authOptions: NextAuthOptions = {
             name: user.name,
           };
         } catch (e) {
+          console.log(e);
           if (e instanceof JsonWebTokenError) throw new InvalidTokenException();
           if (e instanceof NoUserException || e instanceof NotTeacherException)
             throw e;

@@ -23,6 +23,7 @@
     "buttonText": "Вернуться на главную"
   },
   "header": {
+    "menu": "Меню",
     "add-lesson": "Добавить урок",
     "switch-to": "Switch to"
   },

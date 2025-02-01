@@ -46,7 +46,10 @@ const SignInContent = () => {
         <p className={styles.message}>
           {loading && status === 'loading' && t('loadingMessage')}
           {status === 'authenticated' && t('successMessage')}
-          {status === 'unauthenticated' && t('errorMessage')}
+          {!loading &&
+            status !== 'loading' &&
+            status === 'unauthenticated' &&
+            t('errorMessage')}
         </p>
         {status === 'unauthenticated' && (
           <Link
