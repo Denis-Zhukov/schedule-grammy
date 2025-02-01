@@ -12,6 +12,8 @@ import {
   Autocomplete,
   Select,
   IconButton,
+  Paper,
+  Divider,
 } from '@mui/material';
 import TimeField from 'react-simple-timefield';
 import {
@@ -62,172 +64,177 @@ export const AddLessonModal = ({ open, handleClose }: AddLessonModalProps) => {
     <Modal open={open} onClose={handleClose}>
       <Box
         sx={{
-          position: 'fixed',
-          top: '50%',
-          left: '50%',
-          transform: 'translate(-50%, -50%)',
-          bgcolor: 'background.paper',
-          boxShadow: 24,
-          p: 4,
-          borderRadius: 3,
-          width: 420,
-          maxWidth: '90%',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          minHeight: '100vh',
+          p: 2,
+          bgcolor: 'rgba(0, 0, 0, 0.5)',
         }}
       >
-        <IconButton
-          aria-label="close"
-          onClick={handleClose}
+        <Paper
+          elevation={10}
           sx={{
-            position: 'absolute',
-            right: 8,
-            top: 8,
-            color: (theme) => theme.palette.grey[500],
+            position: 'relative',
+            p: 4,
+            borderRadius: 4,
+            width: 480,
+            maxWidth: '95%',
+            bgcolor: 'background.default',
           }}
         >
-          <CloseIcon />
-        </IconButton>
-
-        <Typography variant="h5" fontWeight="bold" gutterBottom>
-          {t('add-lesson-modal.title')}
-        </Typography>
-        <Box
-          onSubmit={onSubmit}
-          component="form"
-          sx={{
-            display: 'flex',
-            flexDirection: 'column',
-            gap: 2.5,
-          }}
-        >
-          <Controller
-            control={control}
-            name="dayOfWeek"
-            render={({ field: { value, onChange } }) => (
-              <Select
-                value={value}
-                onChange={onChange}
-                error={!!errors.dayOfWeek}
-                fullWidth
-              >
-                {DAYS_OF_WEEK.map((day) => (
-                  <MenuItem key={day} value={day}>
-                    {t(`days-of-week.${day}`)}
-                  </MenuItem>
-                ))}
-              </Select>
-            )}
-          />
-
-          <Autocomplete
-            options={LESSONS}
-            onChange={(_, newValue) => setValue('lesson', newValue!)}
-            renderInput={(params) => (
-              <TextField
-                {...params}
-                {...register('lesson')}
-                label={t('add-lesson-modal.lesson')}
-                error={!!errors.lesson}
-                fullWidth
-              />
-            )}
-            freeSolo
-          />
-
-          <Autocomplete
-            options={CLASSES}
-            onChange={(_, newValue) =>
-              setValue('class', newValue as (typeof CLASSES)[number])
-            }
-            renderInput={(params) => (
-              <TextField
-                {...params}
-                {...register('class')}
-                label={t('add-lesson-modal.class')}
-                error={!!errors.class}
-                fullWidth
-              />
-            )}
-            freeSolo
-          />
-
-          <Autocomplete
-            options={SUBCLASSES}
-            onChange={(_, newValue) => setValue('subclass', newValue!)}
-            renderInput={(params) => (
-              <TextField
-                {...params}
-                {...register('subclass')}
-                label={t('add-lesson-modal.subclass')}
-                error={!!errors.subclass}
-                fullWidth
-              />
-            )}
-            freeSolo
-          />
-
-          <Controller
-            control={control}
-            name="timeStart"
-            render={({ field: { name } }) => (
-              <TimeField
-                input={<TextField label={t('add-lesson-modal.timeStart')} />}
-                onChange={(_, value) => {
-                  setValue(name, value);
-                }}
-              />
-            )}
-          />
-
-          <Controller
-            control={control}
-            name="timeEnd"
-            render={({ field: { name } }) => (
-              <TimeField
-                input={<TextField label={t('add-lesson-modal.timeEnd')} />}
-                onChange={(_, value) => {
-                  setValue(name, value);
-                }}
-              />
-            )}
-          />
-
-          <TextField
-            {...register('classroom')}
-            label={t('add-lesson-modal.classroom')}
-            error={!!errors.classroom}
-            fullWidth
-          />
-
-          <FormControlLabel
-            control={<Checkbox {...register('canteen')} />}
-            label={t('add-lesson-modal.canteen')}
-          />
-          <FormControlLabel
-            control={<Checkbox {...register('lead')} />}
-            label={t('add-lesson-modal.lead')}
-          />
-
-          <Box
+          <IconButton
+            aria-label="close"
+            onClick={handleClose}
             sx={{
-              display: 'flex',
-              justifyContent: 'space-between',
-              gap: 2,
-              mt: 2,
+              position: 'absolute',
+              right: 16,
+              top: 16,
             }}
           >
-            <Button
-              variant="outlined"
-              color="error"
-              onClick={handleClose}
+            <CloseIcon />
+          </IconButton>
+
+          <Typography
+            variant="h5"
+            fontWeight="bold"
+            textAlign="center"
+            gutterBottom
+          >
+            {t('add-lesson-modal.title')}
+          </Typography>
+          <Divider sx={{ mb: 2 }} />
+          <Box
+            component="form"
+            onSubmit={onSubmit}
+            sx={{ display: 'flex', flexDirection: 'column', gap: 3 }}
+          >
+            <Controller
+              control={control}
+              name="dayOfWeek"
+              render={({ field }) => (
+                <Select {...field} error={!!errors.dayOfWeek} fullWidth>
+                  {DAYS_OF_WEEK.map((day) => (
+                    <MenuItem key={day} value={day}>
+                      {t(`days-of-week.${day}`)}
+                    </MenuItem>
+                  ))}
+                </Select>
+              )}
+            />
+
+            <Autocomplete
+              options={LESSONS}
+              onChange={(_, newValue) => setValue('lesson', newValue!)}
+              renderInput={(params) => (
+                <TextField
+                  {...params}
+                  label={t('add-lesson-modal.lesson')}
+                  error={!!errors.lesson}
+                  fullWidth
+                />
+              )}
+              freeSolo
+            />
+
+            <Autocomplete
+              options={CLASSES}
+              onChange={(_, newValue) => setValue('class', newValue!)}
+              renderInput={(params) => (
+                <TextField
+                  {...params}
+                  label={t('add-lesson-modal.class')}
+                  error={!!errors.class}
+                  fullWidth
+                />
+              )}
+              freeSolo
+            />
+
+            <Autocomplete
+              options={SUBCLASSES}
+              onChange={(_, newValue) => setValue('subclass', newValue!)}
+              renderInput={(params) => (
+                <TextField
+                  {...params}
+                  label={t('add-lesson-modal.subclass')}
+                  error={!!errors.subclass}
+                  fullWidth
+                />
+              )}
+              freeSolo
+            />
+
+            <Controller
+              control={control}
+              name="timeStart"
+              render={({ field: { name } }) => (
+                <TimeField
+                  input={
+                    <TextField
+                      label={t('add-lesson-modal.timeStart')}
+                      fullWidth
+                    />
+                  }
+                  onChange={(_, value) => setValue(name, value)}
+                />
+              )}
+            />
+
+            <Controller
+              control={control}
+              name="timeEnd"
+              render={({ field: { name } }) => (
+                <TimeField
+                  input={
+                    <TextField
+                      label={t('add-lesson-modal.timeEnd')}
+                      fullWidth
+                    />
+                  }
+                  onChange={(_, value) => setValue(name, value)}
+                />
+              )}
+            />
+
+            <TextField
+              {...register('classroom')}
+              label={t('add-lesson-modal.classroom')}
+              error={!!errors.classroom}
               fullWidth
-            >
-              {t('add-lesson-modal.close')}
-            </Button>
-            <Button type="submit" variant="contained" color="primary" fullWidth>
-              {t('add-lesson-modal.add')}
-            </Button>
+            />
+
+            <Box>
+              <FormControlLabel
+                control={<Checkbox {...register('canteen')} />}
+                label={t('add-lesson-modal.canteen')}
+              />
+              <FormControlLabel
+                control={<Checkbox {...register('lead')} />}
+                label={t('add-lesson-modal.lead')}
+              />
+            </Box>
+
+            <Box sx={{ display: 'flex', gap: 2 }}>
+              <Button
+                variant="outlined"
+                color="error"
+                onClick={handleClose}
+                fullWidth
+              >
+                {t('add-lesson-modal.close')}
+              </Button>
+              <Button
+                type="submit"
+                variant="contained"
+                color="primary"
+                fullWidth
+              >
+                {t('add-lesson-modal.add')}
+              </Button>
+            </Box>
           </Box>
-        </Box>
+        </Paper>
       </Box>
     </Modal>
   );
