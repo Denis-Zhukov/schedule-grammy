@@ -63,19 +63,20 @@ export const en = {
     const end = format(timeEnd, 'HH:mm');
 
     return `${classes[className] ?? className}*${escapeMarkdownV2(subclass)}* ${escapeMarkdownV2(lesson)} ${escapeMarkdownV2(classroom)} \`${escapeMarkdownV2(teacher)}\` _ __${start}\\-${end}__ _${
-      canteen ? '\n\t\t\t\t\t\t*Take you to the canteen* 🍽' : ''
+      canteen ? '\n\t\t\t\t\t\t*Take to the canteen* 🍽' : ''
     }${lead ? '\n\t\t\t\t\t\t*To lead from school* 🏃‍➡️' : ''}`;
   },
-  back: 'Back',
   openControlPanel: 'Open control panel',
-  holiday: "Today's classes are CANCELLED! 🥳",
+  holiday: "Today's classes are __CANCELLED__\\! 🥳",
   chooseTeacher: 'Choose a teacher',
   now: 'Now',
   teacherNotChoose:
     'You have not selected a teacher\nYou must select a teacher first\nClick the "More" button and choose a teacher',
   noLessonsNow: (hours: number, minutes: number) =>
-    `\n\nThere is no lesson now. Until the next lesson: ${hours > 0 ? `${hours} h. ` : ''} ${minutes > 0 ? `${minutes} min.` : ''}`,
-  chill: "*There's nothing else for today. Let's rest!* 🫶",
+    `There is no lesson now. Until the next lesson: ${hours > 0 ? `${hours} h. ` : ''} ${minutes > 0 ? `${minutes} min.` : ''}`,
+  chill: "*There's nothing else for today\\. Let's rest\\!* 🫶",
+  toCanteen: 'This class must be taken to the canteen 🍽',
+  toLead: 'This class must be lead from school 🏃‍➡',
   error: 'Oops, something went wrong 😬',
 };
 
@@ -141,16 +142,17 @@ export const ru: typeof en = {
       canteen ? '\n\t\t\t\t\t\t*Отвести в столовку* 🍽' : ''
     }${lead ? '\n\t\t\t\t\t\t*Вывести из школы* 🏃‍➡️' : ''}`;
   },
-  back: 'Назад',
   openControlPanel: 'Открыть панель управления',
-  holiday: 'Сегодня уроков НЕТ! 🥳',
+  holiday: 'Сегодня уроков __НЕТ__\\! 🥳',
   chooseTeacher: 'Выберите учителя',
   now: 'Сейчас:',
   teacherNotChoose:
     'Вы не выбрали учителя\nСперва необходимо выбрать учителя\nНажмите кнопку "Ещё" и выберите учителя',
   noLessonsNow: (hours: number, minutes: number) =>
-    `\n\n\\n\\nСейчас урока нет. До следущего урока: ${hours > 0 ? `${hours} ч. ` : ''} ${minutes > 0 ? `${minutes} мин.` : ''}`,
-  chill: '*На сегодня больше ничего нет. Отдыхаем!* 🫶',
+    `Сейчас урока нет. До следущего урока: ${hours > 0 ? `${hours} ч. ` : ''} ${minutes > 0 ? `${minutes} мин.` : ''}`,
+  chill: '*На сегодня больше ничего нет\\. Отдыхаем\\!* 🫶',
+  toCanteen: 'Этот класс нужно отвести в столовую 🍽',
+  toLead: 'Этот класс нужно вывести из школы 🏃‍➡',
   error: 'Упс, что-то пошло не так 😬',
 } as const;
 

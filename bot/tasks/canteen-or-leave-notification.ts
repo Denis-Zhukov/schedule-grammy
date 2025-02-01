@@ -5,6 +5,7 @@ import { DayOfWeek } from '@prisma/client';
 import { prisma } from '@bot/utils/prisma-client';
 import { CustomBot } from '@bot/types';
 import { addMinutes } from 'date-fns/addMinutes';
+import { languages } from '@bot/constants/languages';
 
 export const canteenOrLeaveNotification = async (bot: CustomBot) => {
   const now = toZonedTime(new Date(), timezone);
@@ -37,9 +38,18 @@ export const canteenOrLeaveNotification = async (bot: CustomBot) => {
     teacher: { userId },
   } of lessonsEndingSoon) {
     let text = '';
-    if (canteen) text += 'Это класс нужно отвести в столовку\n';
-    if (lead) text += 'Это класс нужно вывести из школы\n';
 
-    await bot.api.sendMessage(userId, text);
+    try {
+      const chat = await bot.api.getChatMember(userId, userId);
+      let lang = (chat.user.language_code as keyof typeof languages) || 'en';
+      lang = lang in languages ? lang : 'en';
+
+      if (canteen) text += languages[lang].toCanteen + '\n';
+      if (lead) text += languages[lang].toLead;
+
+      await bot.api.sendMessage(userId, text);
+    } catch (e) {
+      console.log(e);
+    }
   }
 };

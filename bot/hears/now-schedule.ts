@@ -6,11 +6,10 @@ import { toZonedTime } from 'date-fns-tz';
 import { timezone } from '@bot/constants/time';
 import { DayOfWeek } from '@prisma/client';
 import { getDifferenceInHoursAndMinutes } from '@bot/utils/time/get-difference-in-hours-and-minutes';
-import { escapeMarkdownV2 } from '@bot/utils/escape-markdown';
 
 export const weekdaySchedule = async (ctx: CustomContext) => {
   const user = await prisma.user.findUnique({
-    where: { id: ctx.chat!.id },
+    where: { id: ctx.chat?.id ?? 0 },
   });
 
   const lang = ctx.config.lang;
@@ -58,10 +57,11 @@ export const weekdaySchedule = async (ctx: CustomContext) => {
     },
   });
 
-  if (!data)
-    return ctx.reply(escapeMarkdownV2(languages[lang].chill), {
+  if (!data) {
+    return ctx.reply(languages[lang].chill, {
       parse_mode: 'MarkdownV2',
     });
+  }
 
   const {
     lesson,
