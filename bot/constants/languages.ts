@@ -73,7 +73,7 @@ export const en = {
   teacherNotChoose:
     'You have not selected a teacher\nYou must select a teacher first\nClick the "More" button and choose a teacher',
   noLessonsNow: (hours: number, minutes: number) =>
-    `There is no lesson now. Until the next lesson: ${hours > 0 ? `${hours} h. ` : ''} ${minutes > 0 ? `${minutes} min.` : ''}`,
+    `There is no lesson now\\. Until the next lesson: ${hours > 0 ? `${hours} h\\. ` : ''} ${minutes > 0 ? `${minutes} min\\.` : ''}`,
   chill: "*There's nothing else for today\\. Let's rest\\!* 🫶",
   toCanteen: 'This class must be taken to the canteen 🍽',
   toLead: 'This class must be lead from school 🏃‍➡',
@@ -149,7 +149,7 @@ export const ru: typeof en = {
   teacherNotChoose:
     'Вы не выбрали учителя\nСперва необходимо выбрать учителя\nНажмите кнопку "Ещё" и выберите учителя',
   noLessonsNow: (hours: number, minutes: number) =>
-    `Сейчас урока нет. До следущего урока: ${hours > 0 ? `${hours} ч. ` : ''} ${minutes > 0 ? `${minutes} мин.` : ''}`,
+    `Сейчас урока нет\\. До следущего урока: ${hours > 0 ? `${hours} ч\\. ` : ''} ${minutes > 0 ? `${minutes} мин\\.` : ''}`,
   chill: '*На сегодня больше ничего нет\\. Отдыхаем\\!* 🫶',
   toCanteen: 'Этот класс нужно отвести в столовую 🍽',
   toLead: 'Этот класс нужно вывести из школы 🏃‍➡',
