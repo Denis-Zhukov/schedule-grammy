@@ -9,9 +9,9 @@
   },
   "error-page": {
     "title": "Error",
-    "credentialsSignin": "Invalid token. Please try again.",
-    "invalidToken": "Invalid token. Please try again.",
-    "noUser": "Invalid token. Please try again.",
+    "credentialsSignin": "The link is out of date. You need to create a new one to enter",
+    "invalidToken": "The link is out of date. You need to create a new one to enter",
+    "noUser": "The link is out of date. You need to create a new one to enter",
     "notTeacher": "You are not a teacher.",
     "unexpectedError": "An unexpected error occurred.",
     "default": "An unexpected error occurred.",
