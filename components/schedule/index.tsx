@@ -1,19 +1,12 @@
 'use client';
 
-import { Paper, Typography, Box, Skeleton } from '@mui/material';
+import { Paper, Typography, Box } from '@mui/material';
 import { useDeleteLesson, useGetSchedule } from '@/components/schedule/quries';
 import { useTranslations } from 'next-intl';
 import { Schedule as ScheduleData } from '@prisma/client';
 import { Lesson } from '@/components/lesson';
-
-const daysOfWeek = [
-  'MONDAY',
-  'TUESDAY',
-  'WEDNESDAY',
-  'THURSDAY',
-  'FRIDAY',
-  'SATURDAY',
-];
+import { SkeletonSchedule } from '@/components/schedule/skeleton';
+import { DAYS_OF_WEEK } from './config';
 
 export const Schedule = () => {
   const tDaysOfWeek = useTranslations('days-of-week');
@@ -22,65 +15,15 @@ export const Schedule = () => {
   const { data, isLoading } = useGetSchedule();
   const { mutate: deleteLesson } = useDeleteLesson();
 
-  if (isLoading) {
-    return (
-      <Box
-        sx={{
-          display: 'flex',
-          justifyContent: 'flex-start',
-          alignItems: 'flex-start',
-          flexGrow: 1,
-          overflowX: 'auto',
-          paddingX: 1,
-          paddingY: 2,
-        }}
-      >
-        <Box
-          sx={{
-            display: 'grid',
-            gridTemplateColumns: 'repeat(6, 1fr)',
-            gap: 1,
-            width: 'fit-content',
-            minWidth: '100%',
-            '@media (max-width: 768px)': {
-              gridTemplateColumns: 'repeat(1, 1fr)',
-            },
-          }}
-        >
-          {daysOfWeek.map((day) => (
-            <Paper key={day} elevation={3} sx={{ padding: 1, width: '270px' }}>
-              <Skeleton
-                variant="text"
-                width={150}
-                height={30}
-                sx={{ margin: '0 auto' }}
-              />
-              <Skeleton
-                variant="rectangular"
-                width="100%"
-                height={80}
-                sx={{ marginTop: 2 }}
-              />
-              <Skeleton
-                variant="rectangular"
-                width="100%"
-                height={80}
-                sx={{ marginTop: 1 }}
-              />
-            </Paper>
-          ))}
-        </Box>
-      </Box>
-    );
+  if (isLoading || !data || !Array.isArray(data)) {
+    return <SkeletonSchedule />;
   }
-
-  if (!data || !Array.isArray(data)) return null;
 
   const onDelete = (scheduleId: string) => () => {
     deleteLesson(scheduleId);
   };
 
-  const scheduleByDay = daysOfWeek.reduce(
+  const scheduleByDay = DAYS_OF_WEEK.reduce(
     (acc, day) => {
       acc[day] = [];
       return acc;
@@ -97,27 +40,26 @@ export const Schedule = () => {
     <Box
       sx={{
         display: 'flex',
-        justifyContent: 'flex-start',
-        alignItems: 'flex-start',
-        flexGrow: 1,
         overflowX: 'auto',
         paddingX: 1,
         paddingY: 2,
+        flexGrow: 1,
       }}
     >
       <Box
         sx={{
           display: 'grid',
           gridTemplateColumns: 'repeat(6, 1fr)',
-          gap: 1,
-          width: 'fit-content',
+          justifyContent: 'space-between',
+          alignItems: 'space-between',
+          gap: 2,
           minWidth: '100%',
           '@media (max-width: 768px)': {
             gridTemplateColumns: 'repeat(1, 1fr)',
           },
         }}
       >
-        {daysOfWeek.map((day) => (
+        {DAYS_OF_WEEK.map((day) => (
           <Paper
             key={day}
             elevation={3}
@@ -125,7 +67,7 @@ export const Schedule = () => {
               backgroundColor: '#fff',
               borderRadius: 2,
               padding: 1,
-              width: '270px',
+              minWidth: '270px',
               boxShadow: '0px 4px 8px rgba(0, 0, 0, 0.1)',
               display: 'flex',
               flexDirection: 'column',
@@ -179,7 +121,7 @@ export const Schedule = () => {
                   variant="body2"
                   color="textSecondary"
                   align="center"
-                  sx={{ paddingTop: 2 }}
+                  sx={{ paddingBottom: 2 }}
                 >
                   {t('no-class')}
                 </Typography>

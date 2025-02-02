@@ -25,7 +25,8 @@
   "header": {
     "menu": "Menu",
     "add-lesson": "Add a lesson",
-    "switch-to": "Переключиться на"
+    "switch-to": "Переключиться на",
+    "sign-out": "Sign out"
   },
   "add-lesson-modal": {
     "title": "Add Lesson",
@@ -45,7 +46,8 @@
       "TIME_SLOT_OCCUPIED": "In this period of time there are other lessons",
       "TIME_ERROR": "The time is incorrectly indicated",
       "unexpected": "Unexpected error"
-    }
+    },
+    "success": "The lesson is added"
   },
   "days-of-week": {
     "MONDAY": "Monday",
@@ -57,6 +59,10 @@
     "SUNDAY": "Sunday"
   },
   "schedule": {
-    "no-class": "No class"
-  }
+    "no-class": "No class",
+    "errors": {
+      "unexpected": "Unexpected error"
+    }
+  },
+  "sign-out": "Sign out"
 }

@@ -1,5 +1,5 @@
 'use server';
-import { AddLessonFields, addLessonSchema } from './config';
+import { AddLessonFields, addLessonSchema } from './validation';
 import { prisma } from '@bot/utils/prisma-client';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '@/config/next-auth';
@@ -8,16 +8,16 @@ import { convertTimeToISO } from '@bot/utils/time/convert-time-to-iso';
 export const addLesson = async (payload: AddLessonFields) => {
   try {
     const validation = await addLessonSchema.safeParseAsync(payload);
-    if (!validation.success) return;
+    if (!validation.success) return { isError: true };
 
     const user = await getServerSession(authOptions);
-    if (!user) return null;
+    if (!user) return { isError: true, error: 'UNAUTH' };
 
     const teacher = await prisma.teacher.findUnique({
       where: { userId: user.user.id },
       select: { id: true },
     });
-    if (!teacher) return null;
+    if (!teacher) return { isError: true, error: 'UNAUTH' };
 
     const timeStartISO = convertTimeToISO(payload.timeStart);
     const timeEndISO = convertTimeToISO(payload.timeEnd);

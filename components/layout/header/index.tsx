@@ -13,9 +13,18 @@ import {
 } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 import { LanguageSwitcher } from '@/components/language-switcher';
-import { AddLessonModal } from '@/components/modals/add-lesson';
 import { useTranslations } from 'next-intl';
 import { useTheme } from '@mui/material/styles';
+import dynamic from 'next/dynamic';
+import { locales } from './config';
+import { signOut } from 'next-auth/react';
+
+export const LazyAddLessonModal = dynamic(
+  async () => (await import('@/components/modals/add-lesson')).AddLessonModal,
+  {
+    ssr: false,
+  },
+);
 
 export const Header = () => {
   const [open, setOpen] = useState(false);
@@ -51,7 +60,6 @@ export const Header = () => {
               onClick={handleMenuOpen}
             >
               <MenuIcon />
-
               <Typography variant="body1" color="white">
                 {t('menu')}
               </Typography>
@@ -68,10 +76,7 @@ export const Header = () => {
               }}
             >
               <MenuItem onClick={handleMenuClose} sx={{ color: '#fff' }}>
-                <LanguageSwitcher
-                  cookieName="locale"
-                  locales={{ en: 'English', ru: 'Русский' }}
-                />
+                <LanguageSwitcher cookieName="locale" locales={locales} />
               </MenuItem>
               <MenuItem
                 onClick={() => {
@@ -82,13 +87,16 @@ export const Header = () => {
               >
                 {t('add-lesson')}
               </MenuItem>
+              <MenuItem onClick={() => signOut()} sx={{ color: '#fff' }}>
+                {t('sign-out')}
+              </MenuItem>
             </Menu>
           </>
         ) : (
           <Box
             sx={{
               display: 'flex',
-              justifyContent: 'space-between',
+              gap: 2,
               width: '100%',
             }}
           >
@@ -99,20 +107,33 @@ export const Header = () => {
                 color: '#fff',
                 fontWeight: 'bold',
                 '&:hover': { background: 'rgba(255, 255, 255, 0.2)' },
+                mr: 'auto',
               }}
               onClick={() => setOpen(true)}
             >
               {t('add-lesson')}
             </Button>
-            <LanguageSwitcher
-              cookieName="locale"
-              locales={{ en: 'English', ru: 'Русский' }}
-            />
+            <LanguageSwitcher cookieName="locale" locales={locales} />
+            <Button
+              variant="outlined"
+              sx={{
+                color: '#fff',
+                borderColor: '#fff',
+                fontWeight: 'bold',
+                '&:hover': {
+                  borderColor: '#fff',
+                  backgroundColor: 'rgba(255, 255, 255, 0.1)',
+                },
+              }}
+              onClick={() => signOut()}
+            >
+              {t('sign-out')}
+            </Button>
           </Box>
         )}
       </Toolbar>
 
-      <AddLessonModal open={open} handleClose={() => setOpen(false)} />
+      <LazyAddLessonModal open={open} handleClose={() => setOpen(false)} />
     </AppBar>
   );
 };

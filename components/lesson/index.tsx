@@ -34,7 +34,6 @@ export const Lesson = ({
   return (
     <Card
       sx={{
-        maxWidth: 320,
         m: 1,
         position: 'relative',
         borderRadius: 2,

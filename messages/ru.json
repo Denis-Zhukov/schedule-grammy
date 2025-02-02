@@ -25,7 +25,8 @@
   "header": {
     "menu": "Меню",
     "add-lesson": "Добавить урок",
-    "switch-to": "Switch to"
+    "switch-to": "Switch to",
+    "sign-out": "Выйти"
   },
   "add-lesson-modal": {
     "title": "Добавить урок",
@@ -45,7 +46,8 @@
       "TIME_SLOT_OCCUPIED": "В указанный промежуток времени есть другие уроки",
       "TIME_ERROR": "Неверно указано время",
       "unexpected": "Неожиданная ошибка"
-    }
+    },
+    "success": "Урок добавлен"
   },
   "days-of-week": {
     "MONDAY": "Понедельник",
@@ -57,6 +59,10 @@
     "SUNDAY": "Воскресенье"
   },
   "schedule": {
-    "no-class": "Нет занятий"
-  }
+    "no-class": "Нет занятий",
+    "errors": {
+      "unexpected": "Неожиданная ошибка"
+    }
+  },
+  "sign-out": "Выход"
 }

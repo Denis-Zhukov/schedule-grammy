@@ -1,5 +1,3 @@
-import { z } from 'zod';
-
 export const DAYS_OF_WEEK = [
   'MONDAY',
   'TUESDAY',
@@ -33,21 +31,16 @@ export const CLASSES = [
   '10',
   '11',
 ] as const;
-export const SUBCLASSES = ['А', 'Б', 'В', 'Г', 'СИЗО'];
+export const SUBCLASSES = ['А', 'Б', 'В', 'Г', 'СИЗО'] as const;
 
-export const addLessonSchema = z.object({
-  dayOfWeek: z.enum(DAYS_OF_WEEK),
-  lesson: z.string().nonempty(),
-  class: z.enum(CLASSES),
-  subclass: z.string().nonempty(),
-
-  timeStart: z.string().nonempty(),
-  timeEnd: z.string().nonempty(),
-
-  classroom: z.string().nonempty(),
-
-  canteen: z.boolean(),
-  lead: z.boolean(),
-});
-
-export type AddLessonFields = z.infer<typeof addLessonSchema>;
+export const defaultFields = {
+  dayOfWeek: 'MONDAY' as (typeof DAYS_OF_WEEK)[number],
+  lesson: '',
+  class: '' as (typeof CLASSES)[number],
+  subclass: '',
+  timeStart: '00:00',
+  timeEnd: '00:00',
+  classroom: '',
+  canteen: false,
+  lead: false,
+};
