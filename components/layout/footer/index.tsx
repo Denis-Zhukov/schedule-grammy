@@ -9,6 +9,7 @@ import {
 } from '@mui/material';
 import GitHubIcon from '@mui/icons-material/GitHub';
 import TelegramIcon from '@mui/icons-material/Telegram';
+import { getMessages } from 'next-intl/server';
 
 const socialLinks = [
   {
@@ -21,15 +22,17 @@ const socialLinks = [
   },
 ];
 
-export const Footer = () => {
+export const Footer = async () => {
+  const messages = (await getMessages())['footer'] as Record<string, string>;
+
   return (
     <AppBar
       position="static"
       component="footer"
       sx={{
         background: 'linear-gradient(135deg, #191919, #222831)',
-        py: 0.15, // Минимизация высоты футера
-        boxShadow: '0px -2px 8px rgba(0, 0, 0, 0.3)', // Легкая тень
+        py: 0.15,
+        boxShadow: '0px -2px 8px rgba(0, 0, 0, 0.3)',
       }}
     >
       <Container maxWidth="xl">
@@ -41,7 +44,7 @@ export const Footer = () => {
             color="rgba(255, 255, 255, 0.7)"
             sx={{ fontSize: '0.7rem' }}
           >
-            © {new Date().getFullYear()} My Project
+            © {new Date().getFullYear()} {messages['owner']}
           </Typography>
 
           <Box sx={{ display: 'flex', gap: 1 }}>

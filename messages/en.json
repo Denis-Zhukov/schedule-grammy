@@ -64,5 +64,8 @@
       "unexpected": "Unexpected error"
     }
   },
-  "sign-out": "Sign out"
+  "sign-out": "Sign out",
+  "footer": {
+    "owner": "Denis Zhukov. All rights reserved."
+  }
 }
