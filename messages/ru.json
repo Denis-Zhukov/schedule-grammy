@@ -1,0 +1,71 @@
+{
+  "sign-in": {
+    "title": "Авторизация",
+    "loadingMessage": "Подтверждаем данные...",
+    "successMessage": "Вы успешно вошли",
+    "errorMessage": "Необходимо перейти по ссылке из бота",
+    "telegramButtonText": "Перейти в Telegram",
+    "homeButtonText": "На главную страницу"
+  },
+  "error-page": {
+    "title": "Ошибка",
+    "credentialsSignin": "Ссылка устарела. Для входа необходимо создать новую",
+    "invalidToken": "Ссылка устарела. Для входа необходимо создать новую",
+    "noUser": "Ссылка устарела. Для входа необходимо создать новую",
+    "notTeacher": "Вы не учитель.",
+    "unexpectedError": "Произошла неизвестная ошибка.",
+    "default": "Произошла неизвестная ошибка.",
+    "telegramButtonText": "Перейти в Telegram"
+  },
+  "404": {
+    "title": "404",
+    "message": "Страница не найдена",
+    "buttonText": "Вернуться на главную"
+  },
+  "header": {
+    "menu": "Меню",
+    "add-lesson": "Добавить урок",
+    "switch-to": "Switch to",
+    "sign-out": "Выйти"
+  },
+  "add-lesson-modal": {
+    "title": "Добавить урок",
+    "days-of-week": "День недели",
+    "lesson": "Урок",
+    "class": "Класс",
+    "subclass": "Подкласс",
+    "timeStart": "Время начала",
+    "timeEnd": "Время окончания",
+    "classroom": "Кабинет",
+    "canteen": "Необходимо отвести в столовую",
+    "lead": "Необходимо вывести из школы",
+    "close": "Закрыть",
+    "add": "Добавить",
+    "errors": {
+      "P2002": "На это время уже есть урок",
+      "TIME_SLOT_OCCUPIED": "В указанный промежуток времени есть другие уроки",
+      "TIME_ERROR": "Неверно указано время",
+      "unexpected": "Неожиданная ошибка"
+    },
+    "success": "Урок добавлен"
+  },
+  "days-of-week": {
+    "MONDAY": "Понедельник",
+    "TUESDAY": "Вторник",
+    "WEDNESDAY": "Среда",
+    "THURSDAY": "Четверг",
+    "FRIDAY": "Пятница",
+    "SATURDAY": "Суббота",
+    "SUNDAY": "Воскресенье"
+  },
+  "schedule": {
+    "no-class": "Нет занятий",
+    "errors": {
+      "unexpected": "Неожиданная ошибка"
+    }
+  },
+  "sign-out": "Выход",
+  "footer": {
+    "owner": "Жуков Денис. Все права защищены."
+  }
+}

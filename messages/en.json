@@ -1,0 +1,71 @@
+{
+  "sign-in": {
+    "title": "Sign In",
+    "loadingMessage": "Confirming data...",
+    "successMessage": "You have successfully logged in",
+    "errorMessage": "You need to follow the link from the bot",
+    "telegramButtonText": "Go to Telegram",
+    "homeButtonText": "Go to the home page"
+  },
+  "error-page": {
+    "title": "Error",
+    "credentialsSignin": "The link is out of date. You need to create a new one to enter",
+    "invalidToken": "The link is out of date. You need to create a new one to enter",
+    "noUser": "The link is out of date. You need to create a new one to enter",
+    "notTeacher": "You are not a teacher.",
+    "unexpectedError": "An unexpected error occurred.",
+    "default": "An unexpected error occurred.",
+    "telegramButtonText": "Go to Telegram"
+  },
+  "404": {
+    "title": "404",
+    "message": "Page not found",
+    "buttonText": "Go to homepage"
+  },
+  "header": {
+    "menu": "Menu",
+    "add-lesson": "Add a lesson",
+    "switch-to": "Переключиться на",
+    "sign-out": "Sign out"
+  },
+  "add-lesson-modal": {
+    "title": "Add Lesson",
+    "days-of-week": "Day of the Week",
+    "lesson": "Lesson",
+    "class": "Class",
+    "subclass": "Subclass",
+    "timeStart": "Start Time",
+    "timeEnd": "End Time",
+    "classroom": "Classroom",
+    "canteen": "Need to take to the canteen",
+    "lead": "Need to take out of the school",
+    "close": "Close",
+    "add": "Add",
+    "errors": {
+      "P2002": "There is already a lesson for this time",
+      "TIME_SLOT_OCCUPIED": "In this period of time there are other lessons",
+      "TIME_ERROR": "The time is incorrectly indicated",
+      "unexpected": "Unexpected error"
+    },
+    "success": "The lesson is added"
+  },
+  "days-of-week": {
+    "MONDAY": "Monday",
+    "TUESDAY": "Tuesday",
+    "WEDNESDAY": "Wednesday",
+    "THURSDAY": "Thursday",
+    "FRIDAY": "Friday",
+    "SATURDAY": "Saturday",
+    "SUNDAY": "Sunday"
+  },
+  "schedule": {
+    "no-class": "No class",
+    "errors": {
+      "unexpected": "Unexpected error"
+    }
+  },
+  "sign-out": "Sign out",
+  "footer": {
+    "owner": "Denis Zhukov. All rights reserved."
+  }
+}

@@ -1,9 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -11,4 +5,73 @@ generator client {
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
+}
+
+model User {
+  id Int @id
+
+  username String? @map("username")
+  surname  String? @map("surname")
+  name     String? @map("name")
+
+  createdAt DateTime @default(now()) @map("created_at") @db.Timestamp()
+  updatedAt DateTime @updatedAt @map("updated_at") @db.Timestamp()
+
+  followingTeacherId String?
+  followingTeacher   Teacher? @relation(name: "FollowingUserTeacher", fields: [followingTeacherId], references: [id])
+
+  teacher Teacher?
+
+  @@map("users")
+}
+
+model Teacher {
+  id String @id @default(uuid())
+
+  surname    String
+  name       String
+  patronymic String?
+
+  userId Int  @unique @map("user_id")
+  user   User @relation(fields: [userId], references: [id])
+
+  createdAt DateTime @default(now()) @map("created_at") @db.Timestamp()
+  updatedAt DateTime @updatedAt @map("updated_at") @db.Timestamp()
+
+  followedUsers User[] @relation(name: "FollowingUserTeacher")
+
+  schedule Schedule[]
+
+  @@map("teachers")
+}
+
+enum DayOfWeek {
+  MONDAY
+  TUESDAY
+  WEDNESDAY
+  THURSDAY
+  FRIDAY
+  SATURDAY
+  SUNDAY
+}
+
+model Schedule {
+  id String @id @default(uuid())
+
+  dayOfWeek DayOfWeek
+  lesson    String
+  class     Int
+  subclass  String
+  timeStart DateTime  @db.Time()
+  timeEnd   DateTime  @db.Time()
+  classroom String
+
+  canteen Boolean @default(false)
+  lead    Boolean @default(false)
+
+  teacherId String  @map("teacher_id")
+  teacher   Teacher @relation(fields: [teacherId], references: [id], onDelete: Cascade)
+
+  @@unique([teacherId, dayOfWeek, timeStart, timeEnd])
+  @@map("schedule")
 }
