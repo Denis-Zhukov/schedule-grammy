@@ -24,7 +24,7 @@ const SignOutPage = () => {
       }}
     >
       <Typography variant="h6" gutterBottom>
-        ${t('sign-out')}
+        {t('sign-out')}
       </Typography>
       <CircularProgress />
     </Container>
