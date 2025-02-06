@@ -11,6 +11,8 @@ export const chooseTeacher = async (ctx: CustomContext) => {
     teachers,
   });
 
+  if (!inlineKeyboard) return await ctx.reply(languages[lang].noTeachers);
+
   await ctx.reply(languages[lang].chooseTeacher, {
     reply_markup: inlineKeyboard,
   });

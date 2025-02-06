@@ -8,12 +8,15 @@ type GenerateMoreInlineKeyboardParams = {
 export const setFollowingTeacherInlineKeyboard = ({
   teachers,
 }: GenerateMoreInlineKeyboardParams) => {
-  const inlineKeyboardItems = teachers.map(
-    ({ surname, name, patronymic, id }) => [
-      `${surname} ${name} ${patronymic}`,
-      id,
-    ],
-  );
+  const inlineKeyboardItems = [] as string[][];
+
+  for (const { id, surname, name, patronymic, disabled } of teachers) {
+    if (!disabled) {
+      inlineKeyboardItems.push([`${surname} ${name} ${patronymic}`, id]);
+    }
+  }
+
+  if (!inlineKeyboardItems.length) return null;
 
   return new InlineKeyboard(
     inlineKeyboardItems.map(([label, data]) => [

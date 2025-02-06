@@ -24,7 +24,7 @@ export const en = {
     imTeacher: "I'm a teacher",
     adminSchedule: 'Duty administrator',
     callSchedule: 'Call schedule',
-    chooseTeacher: 'Choose teacher',
+    chooseTeacher: 'Choose a teacher',
     contacts: 'Contacts',
     schedule: 'Configure schedule',
   },
@@ -69,6 +69,7 @@ export const en = {
   openControlPanel: 'Open control panel',
   holiday: "Today's classes are __CANCELLED__\\! 🥳",
   chooseTeacher: 'Choose a teacher',
+  noTeachers: 'Unfortunately, there are no teachers on the list at the moment',
   now: 'Now',
   teacherNotChoose:
     'You have not selected a teacher\nYou must select a teacher first\nClick the "More" button and choose a teacher',
@@ -145,6 +146,7 @@ export const ru: typeof en = {
   openControlPanel: 'Открыть панель управления',
   holiday: 'Сегодня уроков __НЕТ__\\! 🥳',
   chooseTeacher: 'Выберите учителя',
+  noTeachers: 'К сожалению, на данный момент в списке нет учителей',
   now: 'Сейчас:',
   teacherNotChoose:
     'Вы не выбрали учителя\nСперва необходимо выбрать учителя\nНажмите кнопку "Ещё" и выберите учителя',
