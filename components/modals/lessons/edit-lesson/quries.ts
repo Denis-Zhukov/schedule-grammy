@@ -4,11 +4,12 @@ import {
   updateLesson,
   UpdateLessonReturnType,
 } from './server-actions';
-import { toast } from 'react-toastify';
 import { useTranslations } from 'next-intl';
 import { redirect } from 'next/navigation';
 import { isSuccess } from '@/utils/guards/is-success';
 import { isError } from '@/utils/guards/is-error';
+import { toastSuccess } from '@/utils/toasts/toast-success';
+import { toastError } from '@/utils/toasts/toast-error';
 
 export const useFetchLesson = (lessonId: string | null) => {
   return useQuery({
@@ -27,15 +28,15 @@ export const useUpdateLessonMutation = () => {
     onSuccess: (data: UpdateLessonReturnType) => {
       if (!data) return;
       if (isSuccess(data)) {
-        toast(t('success'), { type: 'success' });
+        toastSuccess(t('success'));
         queryClient.invalidateQueries({ queryKey: ['schedule'] });
         queryClient.invalidateQueries({ queryKey: ['lesson'] });
       } else if (isError(data) && data.error === 'UNAUTH') {
         redirect('/auth/sign-out');
       } else if (isError(data) && data.error) {
-        toast(t(`errors.${data.error}`), { type: 'error' });
+        toastError(t(`errors.${data.error}`));
       } else if (isError(data)) {
-        toast(t('errors.unexpected'), { type: 'error' });
+        toastError(t('errors.unexpected'));
       }
     },
     mutationKey: ['schedule', 'lesson'],

@@ -68,7 +68,7 @@
       "TIME_ERROR": "The time is incorrectly indicated",
       "unexpected": "Unexpected error"
     },
-    "success": "The lesson is added"
+    "success": "The lesson has been updated"
   },
   "days-of-week": {
     "MONDAY": "Monday",
