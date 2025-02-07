@@ -8,4 +8,5 @@ export const envConfig = {
   NEXTAUTH_URL: process.env.NEXTAUTH_URL || '',
   AUTH_SECRET: process.env.AUTH_SECRET || '',
   TOKEN_LIFETIME: Number(process.env.TOKEN_LIFETIME) || 7200,
+  GOOGLE_VERIFICATION: process.env.GOOGLE_VERIFICATION || '',
 } as const;
