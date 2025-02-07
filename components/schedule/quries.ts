@@ -20,7 +20,7 @@ export const useGetSchedule = () => {
       if (data.error === 'UNAUTH') redirect('/auth/sign-out');
       else toast(t('unexpected'), { type: 'error' });
     }
-  }, [data, isSuccess]);
+  }, [t, data, isSuccess]);
 
   return query;
 };

@@ -1,13 +1,12 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { addLesson } from '@/components/modals/add-lesson/server-action';
+import { addLesson } from './server-action';
 import { toast } from 'react-toastify';
-import { defaultFields } from '@/components/modals/add-lesson/config';
 import { useTranslations } from 'next-intl';
-import { type UseFormReset } from 'react-hook-form';
-import { type AddLessonFields } from './validation';
 import { redirect } from 'next/navigation';
+import { isSuccess } from '@/utils/guards/is-success';
+import { isError } from '@/utils/guards/is-error';
 
-export const useSendLessonMutation = (reset: UseFormReset<AddLessonFields>) => {
+export const useSendLessonMutation = () => {
   const t = useTranslations('add-lesson-modal');
   const queryClient = useQueryClient();
 
@@ -15,20 +14,14 @@ export const useSendLessonMutation = (reset: UseFormReset<AddLessonFields>) => {
     mutationFn: addLesson,
     onSuccess: (data) => {
       if (!data) return;
-      if (data.isSuccess) {
+      if (isSuccess(data)) {
         toast(t('success'), { type: 'success' });
-        reset((fields) => ({
-          ...defaultFields,
-          dayOfWeek: fields.dayOfWeek,
-          lesson: fields.lesson,
-        }));
         queryClient.invalidateQueries({ queryKey: ['schedule'] });
-      }
-      if (data.error === 'UNAUTH') {
+      } else if (isError(data) && data.error === 'UNAUTH') {
         redirect('/auth/sign-out');
-      } else if (data.error) {
+      } else if (isError(data) && data.error) {
         toast(t(`errors.${data.error}`), { type: 'error' });
-      } else if (data.isError) {
+      } else if (isError(data)) {
         toast(t('errors.unexpected'), { type: 'error' });
       }
     },

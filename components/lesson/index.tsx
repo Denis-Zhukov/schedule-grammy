@@ -11,26 +11,31 @@ import {
 import { format, toZonedTime } from 'date-fns-tz';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
+import { useDeleteLesson } from '@/components/schedule/quries';
 
 type LessonProps = {
+  id: string;
   lesson: string;
   className: number;
   subclass: string;
   timeStart: Date;
   timeEnd: Date;
-  onDelete: VoidFunction;
   onEdit: VoidFunction;
 };
 
 export const Lesson = ({
+  id,
   timeStart,
   timeEnd,
   className,
   subclass,
   lesson,
-  onDelete,
   onEdit,
 }: LessonProps) => {
+  const { mutate: deleteLesson, isPending } = useDeleteLesson();
+
+  const onDelete = () => deleteLesson(id);
+
   return (
     <Card
       sx={{
@@ -54,7 +59,7 @@ export const Lesson = ({
           flexDirection: 'column',
         }}
       >
-        <IconButton onClick={onDelete} color="error">
+        <IconButton onClick={onDelete} loading={isPending} color="error">
           <DeleteIcon />
         </IconButton>
         <IconButton onClick={onEdit} color="primary">
@@ -75,6 +80,11 @@ export const Lesson = ({
               mb: 1,
               fontSize: 18,
               paddingRight: '16px',
+              '@media (max-width: 333px)': {
+                mb: 0,
+                fontSize: 16,
+                paddingRight: 0,
+              },
             }}
           >
             {lesson}

@@ -1,26 +1,28 @@
 'use client';
 
 import { Paper, Typography, Box } from '@mui/material';
-import { useDeleteLesson, useGetSchedule } from '@/components/schedule/quries';
+import { useGetSchedule } from '@/components/schedule/quries';
 import { useTranslations } from 'next-intl';
 import { Schedule as ScheduleData } from '@prisma/client';
 import { Lesson } from '@/components/lesson';
 import { SkeletonSchedule } from '@/components/schedule/skeleton';
 import { DAYS_OF_WEEK } from './config';
+import { useRouter } from 'next/navigation';
 
 export const Schedule = () => {
   const tDaysOfWeek = useTranslations('days-of-week');
   const t = useTranslations('schedule');
 
+  const router = useRouter();
+
   const { data, isLoading } = useGetSchedule();
-  const { mutate: deleteLesson } = useDeleteLesson();
 
   if (isLoading || !data || !Array.isArray(data)) {
     return <SkeletonSchedule />;
   }
 
-  const onDelete = (scheduleId: string) => () => {
-    deleteLesson(scheduleId);
+  const onEdit = (scheduleId: string) => () => {
+    router.push(`?modal=edit-lesson&id=${scheduleId}`);
   };
 
   const scheduleByDay = DAYS_OF_WEEK.reduce(
@@ -53,9 +55,11 @@ export const Schedule = () => {
           justifyContent: 'space-between',
           alignItems: 'space-between',
           gap: 2,
-          minWidth: '100%',
+          width: '100%',
           '@media (max-width: 768px)': {
             gridTemplateColumns: 'repeat(1, 1fr)',
+            minWidth: 'auto',
+            width: 'calc(100% - 16px)',
           },
         }}
       >
@@ -76,6 +80,7 @@ export const Schedule = () => {
                 boxShadow: '0px 6px 12px rgba(0, 0, 0, 0.15)',
               },
               '@media (max-width: 768px)': {
+                minWidth: 'auto',
                 width: '100%',
               },
             }}
@@ -103,10 +108,8 @@ export const Schedule = () => {
                     timeEnd,
                   }) => (
                     <Lesson
-                      onDelete={onDelete(id)}
-                      onEdit={() =>
-                        alert('Ещё не реализовано, будет добавлено позже')
-                      }
+                      id={id}
+                      onEdit={onEdit(id)}
                       key={id}
                       lesson={lesson}
                       className={className}
