@@ -35,6 +35,8 @@ export function generateMetadata(): Metadata {
       description:
         'A platform for managing schedules and organizing teaching processes for educators.',
       siteName: 'Teacher Schedule Management',
+      url: envConfig.SERVER_URL,
+      type: 'website',
     },
     other,
   };
