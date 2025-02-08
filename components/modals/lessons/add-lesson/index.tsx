@@ -6,6 +6,7 @@ import { useTranslations } from 'next-intl';
 import { AddLessonFields } from '../validation';
 import { UseFormReset } from 'react-hook-form';
 import { defaultFields } from '../config';
+import { isSuccess } from '@/utils/guards/is-success';
 
 export const AddLessonModal = () => {
   const t = useTranslations('add-lesson-modal');
@@ -16,8 +17,15 @@ export const AddLessonModal = () => {
   const handleSubmit =
     (reset: UseFormReset<AddLessonFields>) =>
     async (values: AddLessonFields) => {
-      await addLesson(values);
-      reset(defaultFields);
+      const data = await addLesson(values);
+
+      if (isSuccess(data)) {
+        reset((prev) => ({
+          ...defaultFields,
+          dayOfWeek: prev.dayOfWeek,
+          lesson: prev.lesson,
+        }));
+      }
     };
 
   return (
