@@ -26,7 +26,7 @@ import {
   LESSONS,
   SUBCLASSES,
 } from './config';
-import { addLessonSchema, type AddLessonFields } from './validation';
+import { addLessonSchema, type AddLessonFields } from '../validation';
 import { useEffect } from 'react';
 
 interface LessonFormProps {

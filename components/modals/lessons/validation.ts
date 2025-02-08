@@ -3,14 +3,14 @@ import { CLASSES, DAYS_OF_WEEK } from './config';
 
 export const addLessonSchema = z.object({
   dayOfWeek: z.enum(DAYS_OF_WEEK),
-  lesson: z.string().nonempty(),
+  lesson: z.string().min(2).max(100),
   class: z.enum(CLASSES),
-  subclass: z.string().nonempty(),
+  subclass: z.string().min(1).max(50),
 
-  timeStart: z.string().nonempty(),
-  timeEnd: z.string().nonempty(),
+  timeStart: z.string().min(5).max(5),
+  timeEnd: z.string().min(5).max(5),
 
-  classroom: z.string().nonempty(),
+  classroom: z.string().min(1).max(50),
 
   canteen: z.boolean(),
   lead: z.boolean(),
