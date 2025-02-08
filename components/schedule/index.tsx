@@ -81,6 +81,7 @@ export const Schedule = () => {
               },
               '@media (max-width: 768px)': {
                 minWidth: 'auto',
+                maxWidth: 'calc(100vw - 32px)',
                 width: '100%',
               },
             }}
