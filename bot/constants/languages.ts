@@ -79,6 +79,7 @@ export const en = {
   toCanteen: 'This class must be taken to the canteen 🍽',
   toLead: 'This class must be lead from school 🏃‍➡',
   error: 'Oops, something went wrong 😬',
+  back: 'Back',
 };
 
 export const ru: typeof en = {
@@ -156,6 +157,7 @@ export const ru: typeof en = {
   toCanteen: 'Этот класс нужно отвести в столовую 🍽',
   toLead: 'Этот класс нужно вывести из школы 🏃‍➡',
   error: 'Упс, что-то пошло не так 😬',
+  back: 'Назад',
 } as const;
 
 export const languages = {

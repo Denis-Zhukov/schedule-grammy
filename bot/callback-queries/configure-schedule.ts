@@ -24,6 +24,10 @@ const configureSchedule = async (ctx: CustomContext) => {
             text: languages[lang].openControlPanel,
             url,
           },
+          {
+            text: languages[lang].back,
+            callback_data: 'more',
+          },
         ],
       ],
     },
