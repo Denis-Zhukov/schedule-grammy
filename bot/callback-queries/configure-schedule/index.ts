@@ -25,6 +25,10 @@ const configureSchedule = async (ctx: CustomContext) => {
             url,
           },
           {
+            text: languages[lang].newLink,
+            callback_data: 'new-link',
+          },
+          {
             text: languages[lang].back,
             callback_data: 'more',
           },
@@ -34,4 +38,4 @@ const configureSchedule = async (ctx: CustomContext) => {
   });
 };
 
-export default ['configure-schedule', configureSchedule];
+export default [['configure-schedule', 'new-link'], configureSchedule];
