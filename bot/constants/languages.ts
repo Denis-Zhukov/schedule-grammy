@@ -80,6 +80,7 @@ export const en = {
   toLead: 'This class must be lead from school 🏃‍➡',
   error: 'Oops, something went wrong 😬',
   newLink: 'Create a new link',
+  linkUpdated: 'The link has been updated',
   back: 'Back',
 };
 
@@ -159,6 +160,7 @@ export const ru: typeof en = {
   toLead: 'Этот класс нужно вывести из школы 🏃‍➡',
   error: 'Упс, что-то пошло не так 😬',
   newLink: 'Создать новую ссылку',
+  linkUpdated: 'Ссылка обновлена. Теперь вы можете войти',
   back: 'Назад',
 } as const;
 

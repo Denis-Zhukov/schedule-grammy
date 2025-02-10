@@ -40,6 +40,10 @@ const configureSchedule = async (ctx: CustomContext) => {
       ],
     },
   });
+
+  if (ctx.callbackQuery?.data === 'new-link') {
+    await ctx.answerCallbackQuery(languages[lang].linkUpdated);
+  }
 };
 
 export default [['configure-schedule', 'new-link'], configureSchedule];
