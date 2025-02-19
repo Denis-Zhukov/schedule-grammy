@@ -11,7 +11,19 @@ export const chooseTeacher = async (ctx: CustomContext) => {
     teachers,
   });
 
-  await ctx.reply(languages[lang].chooseTeacher, {
-    reply_markup: inlineKeyboard,
-  });
+  if (!inlineKeyboard) return await ctx.reply(languages[lang].noTeachers);
+
+  inlineKeyboard.inline_keyboard.push([
+    { text: languages[lang].back, callback_data: 'more' },
+  ]);
+
+  if (ctx.callbackQuery) {
+    await ctx.editMessageText(languages[lang].chooseTeacher, {
+      reply_markup: inlineKeyboard,
+    });
+  } else {
+    await ctx.reply(languages[lang].chooseTeacher, {
+      reply_markup: inlineKeyboard,
+    });
+  }
 };

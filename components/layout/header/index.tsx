@@ -15,23 +15,21 @@ import MenuIcon from '@mui/icons-material/Menu';
 import { LanguageSwitcher } from '@/components/language-switcher';
 import { useTranslations } from 'next-intl';
 import { useTheme } from '@mui/material/styles';
-import dynamic from 'next/dynamic';
 import { locales } from './config';
 import { signOut } from 'next-auth/react';
-
-export const LazyAddLessonModal = dynamic(
-  async () => (await import('@/components/modals/add-lesson')).AddLessonModal,
-  {
-    ssr: false,
-  },
-);
+import { useModalState } from '@/hooks/use-modal';
 
 export const Header = () => {
-  const [open, setOpen] = useState(false);
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
   const t = useTranslations('header');
+
+  const { handleOpen } = useModalState('add-lesson');
+
+  const handleOpenAddLesson = () => {
+    handleOpen();
+  };
 
   const handleMenuOpen = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget);
@@ -80,7 +78,7 @@ export const Header = () => {
               </MenuItem>
               <MenuItem
                 onClick={() => {
-                  setOpen(true);
+                  handleOpenAddLesson();
                   handleMenuClose();
                 }}
                 sx={{ color: '#fff' }}
@@ -109,7 +107,7 @@ export const Header = () => {
                 '&:hover': { background: 'rgba(255, 255, 255, 0.2)' },
                 mr: 'auto',
               }}
-              onClick={() => setOpen(true)}
+              onClick={handleOpenAddLesson}
             >
               {t('add-lesson')}
             </Button>
@@ -132,8 +130,6 @@ export const Header = () => {
           </Box>
         )}
       </Toolbar>
-
-      <LazyAddLessonModal open={open} handleClose={() => setOpen(false)} />
     </AppBar>
   );
 };

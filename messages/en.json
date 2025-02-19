@@ -49,6 +49,27 @@
     },
     "success": "The lesson is added"
   },
+  "edit-lesson-modal": {
+    "title": "Edit Lesson",
+    "days-of-week": "Day of the Week",
+    "lesson": "Lesson",
+    "class": "Class",
+    "subclass": "Subclass",
+    "timeStart": "Start Time",
+    "timeEnd": "End Time",
+    "classroom": "Classroom",
+    "canteen": "Need to take to the canteen",
+    "lead": "Need to take out of the school",
+    "close": "Cancel",
+    "add": "Update",
+    "errors": {
+      "P2002": "There is already a lesson for this time",
+      "TIME_SLOT_OCCUPIED": "In this period of time there are other lessons",
+      "TIME_ERROR": "The time is incorrectly indicated",
+      "unexpected": "Unexpected error"
+    },
+    "success": "The lesson has been updated"
+  },
   "days-of-week": {
     "MONDAY": "Monday",
     "TUESDAY": "Tuesday",

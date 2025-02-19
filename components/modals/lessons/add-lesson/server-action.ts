@@ -1,5 +1,5 @@
 'use server';
-import { AddLessonFields, addLessonSchema } from './validation';
+import { AddLessonFields, addLessonSchema } from '../validation';
 import { prisma } from '@bot/utils/prisma-client';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '@/config/next-auth';

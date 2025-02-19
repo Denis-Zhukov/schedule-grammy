@@ -8,6 +8,7 @@ import { NextIntlClientProvider } from 'next-intl';
 import { AppRouterCacheProvider } from '@mui/material-nextjs/v15-appRouter';
 import { ReactQueryProvider } from '@/app/react-query-provider';
 import { ToastContainer } from 'react-toastify';
+import { envConfig } from '@/env-config';
 
 const roboto = Roboto({
   variable: '--font-roboto',
@@ -15,20 +16,31 @@ const roboto = Roboto({
   weight: ['400', '700'],
 });
 
-export const metadata: Metadata = {
-  title: 'Schedule Management',
-  description:
-    'A platform for managing schedules and organizing teaching processes for educators.',
-  keywords:
-    'schedule, teachers, school, organization, planning, educational process',
-  creator: 'Denis Zhukov',
-  openGraph: {
-    title: 'Teacher Schedule Management',
+export function generateMetadata(): Metadata {
+  const other: Record<string, string> = {};
+
+  if (envConfig.GOOGLE_VERIFICATION) {
+    other['google-site-verification'] = envConfig.GOOGLE_VERIFICATION;
+  }
+
+  return {
+    title: 'Schedule Management',
     description:
       'A platform for managing schedules and organizing teaching processes for educators.',
-    siteName: 'Teacher Schedule Management',
-  },
-};
+    keywords:
+      'schedule, teachers, school, organization, planning, educational process',
+    creator: 'Denis Zhukov',
+    openGraph: {
+      title: 'Teacher Schedule Management',
+      description:
+        'A platform for managing schedules and organizing teaching processes for educators.',
+      siteName: 'Teacher Schedule Management',
+      url: envConfig.SERVER_URL,
+      type: 'website',
+    },
+    other,
+  };
+}
 
 export default async function RootLayout({
   children,

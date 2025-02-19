@@ -45,6 +45,7 @@ export async function loadHears(bot: CustomBot) {
 export async function loadCallbackQueries(bot: CustomBot) {
   const callbackQueries = [
     await import('@bot/callback-queries/set-following-teacher'),
+    await import('@bot/callback-queries/more'),
     await import('@bot/callback-queries/more/contacts'),
     await import('@bot/callback-queries/more/call-schedule-image'),
     await import('@bot/callback-queries/more/admin-schedule-image'),

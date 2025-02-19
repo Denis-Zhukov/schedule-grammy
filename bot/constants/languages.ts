@@ -24,7 +24,7 @@ export const en = {
     imTeacher: "I'm a teacher",
     adminSchedule: 'Duty administrator',
     callSchedule: 'Call schedule',
-    chooseTeacher: 'Choose teacher',
+    chooseTeacher: 'Choose a teacher',
     contacts: 'Contacts',
     schedule: 'Configure schedule',
   },
@@ -69,15 +69,19 @@ export const en = {
   openControlPanel: 'Open control panel',
   holiday: "Today's classes are __CANCELLED__\\! 🥳",
   chooseTeacher: 'Choose a teacher',
+  noTeachers: 'Unfortunately, there are no teachers on the list at the moment',
   now: 'Now',
   teacherNotChoose:
     'You have not selected a teacher\nYou must select a teacher first\nClick the "More" button and choose a teacher',
   noLessonsNow: (hours: number, minutes: number) =>
-    `There is no lesson now. Until the next lesson: ${hours > 0 ? `${hours} h. ` : ''} ${minutes > 0 ? `${minutes} min.` : ''}`,
+    `There is no lesson now\\. Until the next lesson: ${hours > 0 ? `${hours} h\\. ` : ''} ${minutes > 0 ? `${minutes} min\\.` : ''}`,
   chill: "*There's nothing else for today\\. Let's rest\\!* 🫶",
   toCanteen: 'This class must be taken to the canteen 🍽',
   toLead: 'This class must be lead from school 🏃‍➡',
   error: 'Oops, something went wrong 😬',
+  newLink: 'Create a new link',
+  linkUpdated: 'The link has been updated',
+  back: 'Back',
 };
 
 export const ru: typeof en = {
@@ -145,15 +149,19 @@ export const ru: typeof en = {
   openControlPanel: 'Открыть панель управления',
   holiday: 'Сегодня уроков __НЕТ__\\! 🥳',
   chooseTeacher: 'Выберите учителя',
+  noTeachers: 'К сожалению, на данный момент в списке нет учителей',
   now: 'Сейчас:',
   teacherNotChoose:
     'Вы не выбрали учителя\nСперва необходимо выбрать учителя\nНажмите кнопку "Ещё" и выберите учителя',
   noLessonsNow: (hours: number, minutes: number) =>
-    `Сейчас урока нет. До следущего урока: ${hours > 0 ? `${hours} ч. ` : ''} ${minutes > 0 ? `${minutes} мин.` : ''}`,
+    `Сейчас урока нет\\. До следущего урока: ${hours > 0 ? `${hours} ч\\. ` : ''} ${minutes > 0 ? `${minutes} мин\\.` : ''}`,
   chill: '*На сегодня больше ничего нет\\. Отдыхаем\\!* 🫶',
   toCanteen: 'Этот класс нужно отвести в столовую 🍽',
   toLead: 'Этот класс нужно вывести из школы 🏃‍➡',
   error: 'Упс, что-то пошло не так 😬',
+  newLink: 'Создать новую ссылку',
+  linkUpdated: 'Ссылка обновлена. Теперь вы можете войти',
+  back: 'Назад',
 } as const;
 
 export const languages = {
