@@ -37,12 +37,15 @@ bot.use(loggerMiddleware);
 bot.use(setConfigMiddleware);
 bot.use(
   limit({
-    timeFrame: 1000,
-    limit: 1,
+    timeFrame: 3000,
+    limit: 3,
     onLimitExceeded: async (ctx) => {
-      const lang = ctx.config.lang;
-
-      await ctx.reply(languages[lang].noSpam);
+      try {
+        await ctx.reply(languages[ctx.config.lang].noSpam);
+        if (ctx.callbackQuery) await ctx.answerCallbackQuery();
+      } catch (err) {
+        console.error('Rate limit reply error:', err);
+      }
     },
   }),
 );
