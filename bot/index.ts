@@ -1,5 +1,6 @@
 import { autoRetry } from '@grammyjs/auto-retry';
 import { Bot, session } from 'grammy';
+import { run } from '@grammyjs/runner';
 
 import { envConfig } from '@/env-config';
 import { loadCallbackQueries, loadCommands, loadHears } from '@bot/loader';
@@ -14,9 +15,9 @@ import { limit } from '@grammyjs/ratelimiter';
 import { languages } from '@bot/constants/languages';
 
 const token = envConfig.API_TOKEN;
-
-if (!token)
+if (!token) {
   throw new Error('TELEGRAM_BOT_TOKEN environment variable not found.');
+}
 
 export const bot = new Bot<CustomContext>(token);
 
@@ -53,3 +54,5 @@ bot.use(
 await loadCommands(bot);
 await loadHears(bot);
 await loadCallbackQueries(bot);
+
+run(bot);
