@@ -10,6 +10,8 @@ import { registerCronTasks } from '@bot/tasks';
 import { CustomContext } from '@bot/types';
 import { setErrorHandler } from '@bot/utils/set-error-handler';
 import { setMyCommands } from '@bot/utils/set-my-commands';
+import { limit } from '@grammyjs/ratelimiter';
+import { languages } from '@bot/constants/languages';
 
 const token = envConfig.API_TOKEN;
 
@@ -33,6 +35,17 @@ await setMyCommands(bot);
 bot.use(privateOnlyMiddleware);
 bot.use(loggerMiddleware);
 bot.use(setConfigMiddleware);
+bot.use(
+  limit({
+    timeFrame: 1000,
+    limit: 1,
+    onLimitExceeded: async (ctx) => {
+      const lang = ctx.config.lang;
+
+      await ctx.reply(languages[lang].noSpam);
+    },
+  }),
+);
 
 await loadCommands(bot);
 await loadHears(bot);

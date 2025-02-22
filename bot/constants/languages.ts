@@ -82,6 +82,7 @@ export const en = {
   newLink: 'Create a new link',
   linkUpdated: 'The link has been updated',
   back: 'Back',
+  noSpam: 'Please do not spam',
 };
 
 export const ru: typeof en = {
@@ -162,6 +163,7 @@ export const ru: typeof en = {
   newLink: 'Создать новую ссылку',
   linkUpdated: 'Ссылка обновлена. Теперь вы можете войти',
   back: 'Назад',
+  noSpam: 'Пожалуйста, не спамьте',
 } as const;
 
 export const languages = {
