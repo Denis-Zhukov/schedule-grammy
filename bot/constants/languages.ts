@@ -83,6 +83,8 @@ export const en = {
   linkUpdated: 'The link has been updated',
   back: 'Back',
   noSpam: 'Please do not spam',
+  unknownCommand:
+    "Sorry, I don't understand that command 🥺\\nIf your buttons have disappeared, please send: /b",
 };
 
 export const ru: typeof en = {
@@ -164,6 +166,8 @@ export const ru: typeof en = {
   linkUpdated: 'Ссылка обновлена. Теперь вы можете войти',
   back: 'Назад',
   noSpam: 'Пожалуйста, не спамьте',
+  unknownCommand:
+    'Извините, я не понимаю эту команду 🥺\nЕсли у вас пропали кнопки, то отправьте: /b',
 } as const;
 
 export const languages = {

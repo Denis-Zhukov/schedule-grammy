@@ -50,6 +50,12 @@ bot.use(
     },
   }),
 );
+bot.use(async (ctx, next) => {
+  await next();
+  if (!ctx.update.callback_query && !ctx.update.message?.via_bot) {
+    await ctx.reply(languages[ctx.config.lang].unknownCommand);
+  }
+});
 
 await loadCommands(bot);
 await loadHears(bot);
