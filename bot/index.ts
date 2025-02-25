@@ -56,6 +56,8 @@ await loadHears(bot);
 await loadCallbackQueries(bot);
 
 bot.use(async (ctx, next) => {
+  if (ctx.update.edited_message) return;
+
   await next();
 
   if (
