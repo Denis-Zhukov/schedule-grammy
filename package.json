@@ -31,6 +31,8 @@
     "@emotion/react": "^11.14.0",
     "@emotion/styled": "^11.14.0",
     "@grammyjs/auto-retry": "^2.0.2",
+    "@grammyjs/ratelimiter": "^1.2.1",
+    "@grammyjs/runner": "github:grammyjs/runner",
     "@hookform/resolvers": "^3.10.0",
     "@mui/icons-material": "^6.4.2",
     "@mui/material": "^6.4.2",

@@ -33,7 +33,7 @@ export const fetchLessonById = async (
 
     if (!lesson) return { isError: true, error: 'LESSON_NOT_FOUND' };
 
-    if (lesson.teacher.userId !== user.user.id)
+    if (lesson.teacher.userId !== BigInt(user.user.id))
       return { isError: true, error: 'FORBIDDEN' };
 
     return lesson;

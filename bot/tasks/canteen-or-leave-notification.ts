@@ -40,14 +40,17 @@ export const canteenOrLeaveNotification = async (bot: CustomBot) => {
     let text = '';
 
     try {
-      const chat = await bot.api.getChatMember(userId, userId);
+      const chat = await bot.api.getChatMember(
+        userId.toString(),
+        Number(userId.toString),
+      );
       let lang = (chat.user.language_code as keyof typeof languages) || 'en';
       lang = lang in languages ? lang : 'en';
 
       if (canteen) text += languages[lang].toCanteen + '\n';
       if (lead) text += languages[lang].toLead;
 
-      await bot.api.sendMessage(userId, text);
+      await bot.api.sendMessage(userId.toString(), text);
     } catch (e) {
       console.log(e);
     }
