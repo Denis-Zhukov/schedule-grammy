@@ -84,7 +84,7 @@ export const en = {
   back: 'Back',
   noSpam: 'Please do not spam',
   unknownCommand:
-    "Sorry, I don't understand that command 🥺\\nIf your buttons have disappeared, please send: /b",
+    "Sorry, I don't understand that command 🥺\nIf your buttons have disappeared, please send: /b\n👇Also, if necessary, to the left of the input field you have a menu",
 };
 
 export const ru: typeof en = {
@@ -167,7 +167,7 @@ export const ru: typeof en = {
   back: 'Назад',
   noSpam: 'Пожалуйста, не спамьте',
   unknownCommand:
-    'Извините, я не понимаю эту команду 🥺\nЕсли у вас пропали кнопки, то отправьте: /b',
+    'Извините, я не понимаю эту команду 🥺\nЕсли у вас пропали кнопки, то отправьте: /b\n👇Также, если необходимо, слева от поля ввода у вас есть меню',
 } as const;
 
 export const languages = {
