@@ -1,5 +1,5 @@
 import { autoRetry } from '@grammyjs/auto-retry';
-import { Bot, session } from 'grammy';
+import { Bot, GrammyError, session } from 'grammy';
 import { run } from '@grammyjs/runner';
 
 import { envConfig } from '@/env-config';
@@ -65,7 +65,12 @@ bot.use(async (ctx, next) => {
     !ctx.update.callback_query &&
     !ctx.update.message?.via_bot
   ) {
-    await ctx.reply(languages[ctx.config.lang].unknownCommand);
+    try {
+      await ctx.reply(languages[ctx.config.lang].unknownCommand);
+    } catch (err) {
+      if (err instanceof GrammyError && err.error_code === 403) return;
+      throw err;
+    }
   }
 });
 
